@@ -1,0 +1,33 @@
+{
+  "name": "universal-route",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "react",
+    "next",
+    "nextjs",
+    "express",
+    "node"
+  ],
+  "author": "Miloš Brajević <brajevicms@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.20.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "path-to-regexp": "^3.1.0",
+    "qs": "^6.9.0"
+  }
+}
