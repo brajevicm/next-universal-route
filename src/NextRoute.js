@@ -9,7 +9,7 @@ const urlify = require('./lib/urlify');
 class NextRoute {
   constructor(path, page, urlifyCallback = null) {
     this.path = path;
-    this.page = page;
+    this.page = `/${page}`;
     this.params = {};
     this.queryStringParams = {};
     this.urlifyCallback = urlifyCallback;
