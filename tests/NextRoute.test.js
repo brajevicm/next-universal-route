@@ -1,10 +1,10 @@
 const NextRoute = require('../src/NextRoute');
 
 test('should construct NextRoute', () => {
-  const testRoute = new NextRoute('/test', 'test');
+  const testRoute = new NextRoute('/', 'index');
   expect(testRoute).toBeDefined();
-  expect(testRoute.path).toBe('/test');
-  expect(testRoute.page).toBe('test');
+  expect(testRoute.path).toBe('/');
+  expect(testRoute.page).toBe('index');
 });
 
 test('should get path-to-regexp path', () => {
@@ -50,4 +50,12 @@ test('should generate proper as and href without params and qs', () => {
 
   expect(testRoute.toAs()).toBe('/test');
   expect(testRoute.toHref()).toBe('test');
+});
+
+test('should generate proper as and href with additional queryString params on page', () => {
+  const testRoute = new NextRoute('/test', 'test?a=b');
+  testRoute.generateUrl();
+
+  expect(testRoute.toAs()).toBe('/test');
+  expect(testRoute.toHref()).toBe('test?a=b');
 });

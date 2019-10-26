@@ -11,7 +11,7 @@ class NextRoute {
     this.path = path;
     this.page = page;
     this.params = {};
-    this.clientParams = {};
+    this.queryStringParams = {};
     this.urlifyCallback = urlifyCallback;
   }
 
