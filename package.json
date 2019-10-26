@@ -1,6 +1,6 @@
 {
-  "name": "next-route",
-  "version": "0.0.1",
+  "name": "next-universal-route",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
