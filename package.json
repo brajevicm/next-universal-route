@@ -6,7 +6,7 @@
   "repository": "brajevicm/next-universal-route",
   "scripts": {
     "start": "node index.js",
-    "test": "jest && codecov",
+    "test": "jest --config jest.config.json && codecov",
     "test:watch": "jest --watchAll"
   },
   "author": "Miloš Brajević <brajevicms@gmail.com>",
@@ -41,9 +41,5 @@
   "dependencies": {
     "path-to-regexp": "^3.1.0",
     "qs": "^6.9.0"
-  },
-  "jest": {
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true
   }
 }
