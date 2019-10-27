@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest --config jest.config.json && codecov",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --config jest.config.json --watchAll"
   },
   "author": "Miloš Brajević <brajevicms@gmail.com>",
   "license": "MIT",

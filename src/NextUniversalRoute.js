@@ -28,7 +28,7 @@ class NextUniversalRoute {
     let fn = urlify;
 
     if (isFunction(this.urlifyCallback)) {
-      fn = fn(urlify);
+      fn = string => this.urlifyCallback(urlify(string));
     }
 
     return mapValues(params, param =>

@@ -32,6 +32,15 @@ test('should format params', () => {
   expect(nextRoute.queryStringParams).toMatchObject({ id: 'id' });
 });
 
+test('should format params with custom function', () => {
+  const formatter = string => string.toUpperCase();
+  const testRoute = new NextUniversalRoute('/test/:a', 'test', formatter);
+  const nextRoute = testRoute.generateUrl({ a: 'a' }, { id: 1 });
+
+  expect(nextRoute.params).toMatchObject({ a: 'A' });
+  expect(nextRoute.queryStringParams).toMatchObject({ id: 1 });
+});
+
 test('should generate proper as and href with params and qs', () => {
   const testRoute = new NextUniversalRoute('/test/:a', 'test');
   const nextRoute = testRoute.generateUrl({ a: 'A' }, { id: 'ID' });
