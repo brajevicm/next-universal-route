@@ -1,37 +1,12 @@
 const stringify = require('qs/lib/stringify');
-const cloneDeep = require('lodash/cloneDeep');
-const isFunction = require('lodash/isFunction');
-const mapValues = require('lodash/mapValues');
-
 const generatePath = require('./lib/generatePath');
-const urlify = require('./lib/urlify');
 
 class NextRoute {
-  constructor(path, page, urlifyCallback = null) {
+  constructor(path, page, params, queryStringParams) {
     this.path = path;
-    this.page = `/${page}`;
-    this.params = {};
-    this.queryStringParams = {};
-    this.urlifyCallback = urlifyCallback;
-  }
-
-  generateUrl(params, queryStringParams = {}) {
-    this.params = this.formatUrl(params);
-    this.queryStringParams = this.formatUrl(queryStringParams);
-
-    return cloneDeep(this);
-  }
-
-  formatUrl(params) {
-    let fn = urlify;
-
-    if (isFunction(this.urlifyCallback)) {
-      fn = fn(urlify);
-    }
-
-    return mapValues(params, param =>
-      typeof param === 'string' ? fn(param) : param
-    );
+    this.page = page;
+    this.params = params;
+    this.queryStringParams = queryStringParams;
   }
 
   toAs() {
