@@ -1,12 +1,12 @@
 {
   "name": "next-universal-route",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Declarative two-way universal DRY routes for Next.js",
   "main": "index.js",
   "repository": "brajevicm/next-universal-route",
   "scripts": {
     "start": "node index.js",
-    "test": "jest",
+    "test": "jest && codecov",
     "test:watch": "jest --watchAll"
   },
   "author": "Miloš Brajević <brajevicms@gmail.com>",
@@ -41,5 +41,9 @@
   "dependencies": {
     "path-to-regexp": "^3.1.0",
     "qs": "^6.9.0"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
