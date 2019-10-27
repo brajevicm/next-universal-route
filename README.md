@@ -1,5 +1,7 @@
 # DRY Universal Next.js Routes
 
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![npm](https://img.shields.io/npm/v/next-universal-route)
+
 ## Installation
 ```
 $ npm install next-universal-route
