@@ -1,6 +1,6 @@
 {
   "name": "next-universal-route",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Declarative two-way universal DRY routes for Next.js",
   "main": "index.js",
   "repository": "brajevicm/next-universal-route",
