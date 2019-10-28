@@ -1,4 +1,4 @@
-const isFunction = require('../src/lib/isFunction');
+import isFunction from '../src/lib/isFunction';
 
 test('should be function', () => {
   const fn = () => {};

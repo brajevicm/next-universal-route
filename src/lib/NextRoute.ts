@@ -1,16 +1,26 @@
-const stringify = require('qs/lib/stringify');
-const generatePath = require('./lib/generatePath');
-const isAbsolutePath = require('./lib/isAbsolutePath');
+import { stringify } from 'qs';
+import generatePath from './generatePath';
+import isAbsolutePath from './isAbsolutePath';
 
-class NextRoute {
-  constructor(path, page, params, queryStringParams) {
+export default class NextRoute {
+  public path: string;
+  public page?: string;
+  public params?: object;
+  public queryStringParams?: object;
+
+  constructor(
+    path: string,
+    page?: string,
+    params?: object,
+    queryStringParams?: object
+  ) {
     this.path = path;
     this.page = page;
     this.params = params;
     this.queryStringParams = queryStringParams;
   }
 
-  toAs() {
+  public toAs() {
     if (isAbsolutePath(this.path)) {
       return this.path;
     }
@@ -21,7 +31,7 @@ class NextRoute {
     return queryString ? `${path}?${queryString}` : path;
   }
 
-  toHref() {
+  public toHref() {
     if (isAbsolutePath(this.path)) {
       return this.path;
     }
@@ -34,5 +44,3 @@ class NextRoute {
     return queryString ? `${this.page}?${queryString}` : this.page;
   }
 }
-
-module.exports = NextRoute;

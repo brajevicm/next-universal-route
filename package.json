@@ -2,15 +2,16 @@
   "name": "next-universal-route",
   "version": "0.2.2",
   "description": "Universal Next.js Route",
-  "main": "index.js",
-  "repository": "brajevicm/next-universal-route",
-  "scripts": {
-    "start": "node index.js",
-    "test": "jest --config jest.config.json && codecov",
-    "test:watch": "jest --config jest.config.json --watchAll"
-  },
+  "main": "./dist/index.js",
   "author": "Miloš Brajević <brajevicms@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "lint": "tslint -c tslint.json --project tsconfig.json",
+    "test": "jest --config jest.config.json && codecov",
+    "test:watch": "jest --config jest.config.json --watchAll",
+    "build": "rimraf ./dist && tsc"
+  },
+  "typings": "./dist/",
   "keywords": [
     "react",
     "next",
@@ -26,13 +27,22 @@
     "server-rendering"
   ],
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.4.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.20.1",
+    "@types/jest": "^24.0.20",
+    "@types/next": "^8.0.6",
+    "@types/path-to-regexp": "^1.7.0",
+    "@types/qs": "^6.5.3",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
     "jest": "^24.9.0",
-    "prettier": "^1.18.2"
+    "next": "^9.1.1",
+    "prettier": "^1.18.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "tslint-react": "^4.1.0",
+    "typescript": "^3.6.4"
   },
   "peerDependencies": {
     "next": "^9",

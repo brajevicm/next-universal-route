@@ -1,4 +1,4 @@
-const NextUniversalRoute = require('../src/NextUniversalRoute');
+import NextUniversalRoute from '../src/lib/NextUniversalRoute';
 
 test('should construct NextRoute', () => {
   const testRoute = new NextUniversalRoute('/', 'index');
@@ -33,7 +33,7 @@ test('should format params', () => {
 });
 
 test('should format params with custom function', () => {
-  const formatter = string => string.toUpperCase();
+  const formatter = (string: string) => string.toUpperCase();
   const testRoute = new NextUniversalRoute('/test/:a', 'test', formatter);
   const nextRoute = testRoute.generateUrl({ a: 'a' }, { id: 1 });
 

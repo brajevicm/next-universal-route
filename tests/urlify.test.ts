@@ -1,4 +1,4 @@
-const urlify = require('../src/lib/urlify');
+import urlify from '../src/lib/urlify';
 
 test('should trim both whitespace and non-alphanumeric character', () => {
   const string = '!abc ';

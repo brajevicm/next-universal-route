@@ -1,4 +1,8 @@
 {
   "coverageDirectory": "./coverage/",
-  "collectCoverage": true
+  "collectCoverage": true,
+  "roots": ["<rootDir>/src", "<rootDir>/tests"],
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  }
 }
