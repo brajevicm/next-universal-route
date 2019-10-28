@@ -1,5 +1,6 @@
 const stringify = require('qs/lib/stringify');
 const generatePath = require('./lib/generatePath');
+const isAbsolutePath = require('./lib/isAbsolutePath');
 
 class NextRoute {
   constructor(path, page, params, queryStringParams) {
@@ -10,6 +11,10 @@ class NextRoute {
   }
 
   toAs() {
+    if (isAbsolutePath(this.path)) {
+      return this.path;
+    }
+
     const path = generatePath(this.path, this.params);
     const queryString = stringify(this.queryStringParams);
 
@@ -17,6 +22,10 @@ class NextRoute {
   }
 
   toHref() {
+    if (isAbsolutePath(this.path)) {
+      return this.path;
+    }
+
     const queryString = stringify({
       ...this.params,
       ...this.queryStringParams

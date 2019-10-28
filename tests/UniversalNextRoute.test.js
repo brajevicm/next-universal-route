@@ -64,3 +64,17 @@ test('should generate proper as and href with additional queryString params on p
   expect(nextRoute.toAs()).toBe('/test');
   expect(nextRoute.toHref()).toBe('/test?a=b');
 });
+
+test('should generate href with absolute path', () => {
+  const externalHttpsRoute = new NextUniversalRoute('https://www.github.com');
+  const externalHttpRoute = new NextUniversalRoute('http://github.com');
+
+  expect(externalHttpsRoute.generateUrl().toHref()).toBe(
+    'https://www.github.com'
+  );
+  expect(externalHttpsRoute.generateUrl().toAs()).toBe(
+    'https://www.github.com'
+  );
+  expect(externalHttpRoute.generateUrl().toHref()).toBe('http://github.com');
+  expect(externalHttpRoute.generateUrl().toAs()).toBe('http://github.com');
+});

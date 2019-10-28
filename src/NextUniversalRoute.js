@@ -4,7 +4,7 @@ const mapValues = require('./lib/mapValues');
 const urlify = require('./lib/urlify');
 
 class NextUniversalRoute {
-  constructor(path, page, urlifyCallback = null) {
+  constructor(path, page = null, urlifyCallback = null) {
     this.path = path;
     this.page = `/${page}`;
     this.params = {};
