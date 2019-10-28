@@ -58,13 +58,20 @@ app.prepare().then(() => {
 // pages/index.js
 import React from 'react';
 import Link from 'next/link';
-import IndexRoute from '../server';
+import { IndexRoute } from '../server';
 
-export default CustomLink = ({ route }) => (
+const LinkWrapper = ({ route, children }) => (
   <Link href={route.toHref()} as={route.toAs()}>
-    Go to index page
+    <a>{children}</a>
   </Link>
 );
+
+export default () => (
+  <div>
+    <LinkWrapper route={IndexRoute.generateUrl()}>Go to Index Page</LinkWrapper>
+  </div>
+)
+
 ```
 
 #### Using Universal Next.js Route's Link Component
@@ -72,7 +79,7 @@ export default CustomLink = ({ route }) => (
 // /pages/index.js
 import React from 'react';
 import Link from 'next-universal-route/link';
-import IndexRoute from '../server';
+import { IndexRoute } from '../server';
 
 export default () => (
   <Link href={IndexRoute.generateUrl()}>
