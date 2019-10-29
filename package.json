@@ -11,7 +11,7 @@
     "test:watch": "jest --config jest.config.json --watchAll",
     "build": "rimraf ./dist && tsc"
   },
-  "typings": "./dist/",
+  "typings": "./dist/index.d.ts",
   "keywords": [
     "react",
     "next",
