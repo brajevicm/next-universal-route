@@ -1,20 +1,16 @@
 import NextRouter, { NextRouter as NextRouterType } from 'next/router';
+import { NextRoute } from './NextRoute';
 
-/**
- * Modified original code by @fridays/next-routes
- */
 export const Router = ((router: NextRouterType) => {
-  const wrapFull = method => (href, options) => {
-    return router[method](href.toHref(), href.toAs(), options);
+  const push = (href: NextRoute, options: object) =>
+    router.push(href.toHref(), href.toAs(), options);
+  const replace = (href: NextRoute, options: object) =>
+    router.replace(href.toHref(), href.toAs(), options);
+  const prefetch = (href: NextRoute) => router.prefetch(href.toHref());
+
+  return {
+    push,
+    replace,
+    prefetch
   };
-
-  const wrapHref = method => href => {
-    return router[method](href.toHref());
-  };
-
-  router.push = wrapFull('push');
-  router.replace = wrapFull('replace');
-  router.prefetch = wrapHref('prefetch');
-
-  return router;
 })(NextRouter);
