@@ -1,9 +1,10 @@
 {
   "name": "next-universal-route",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Universal Next.js Route",
   "main": "./dist/index.js",
   "author": "Miloš Brajević <brajevicms@gmail.com>",
+  "repository": "brajevicm/next-universal-route",
   "license": "MIT",
   "scripts": {
     "lint": "tslint -c tslint.json --project tsconfig.json",
