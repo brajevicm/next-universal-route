@@ -20,7 +20,7 @@ export class NextRoute {
     this.queryStringParams = queryStringParams;
   }
 
-  public toAs() {
+  public toAs(): string {
     if (isAbsolutePath(this.path)) {
       return this.path;
     }
@@ -31,7 +31,7 @@ export class NextRoute {
     return queryString ? `${path}?${queryString}` : path;
   }
 
-  public toHref() {
+  public toHref(): string {
     if (isAbsolutePath(this.path)) {
       return this.path;
     }

@@ -18,7 +18,7 @@ export class Route {
     this.queryStringParams = {};
   }
 
-  generateUrl(params = {}, queryStringParams = {}) {
+  generateUrl(params: object = {}, queryStringParams: object = {}) {
     this.params = this.formatUrl(params);
     this.queryStringParams = this.formatUrl(queryStringParams);
 
@@ -30,7 +30,7 @@ export class Route {
     );
   }
 
-  private formatUrl(params: object) {
+  private formatUrl(params: object): object {
     let fn: Function = formatUrl;
 
     if (isFunction(this.urlFormatter)) {
