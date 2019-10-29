@@ -1,4 +1,4 @@
-import generatePath from '../src/lib/generatePath';
+import { generatePath } from '../src/lib/generatePath';
 
 test('should generate path according to passed params', () => {
   const path = '/page/:a/:b/:c';

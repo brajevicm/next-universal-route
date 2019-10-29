@@ -6,5 +6,5 @@ const replaceNonAlphabetCharacters = (string: string) =>
 
 const toLowerCase = (string: string) => string.toLowerCase();
 
-export default (string: string) =>
+export const formatUrl = (string: string) =>
   toLowerCase(replaceHyphenAfterSlash(replaceNonAlphabetCharacters(string)));

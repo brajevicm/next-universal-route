@@ -1,0 +1,9 @@
+src/
+coverage/
+tests/
+.gitignore
+.npmignore
+.prettierrc
+.travis.yml
+jest.config.json
+tsconfig.json

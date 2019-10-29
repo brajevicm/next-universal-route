@@ -1,19 +1,19 @@
-import NextRoute from './NextRoute';
-import isFunction from './isFunction';
-import mapValues from './mapValues';
-import urlify from './urlify';
+import { NextRoute } from './NextRoute';
+import { isFunction } from './lib/isFunction';
+import { mapValues } from './lib/mapValues';
+import { formatUrl } from './lib/formatUrl';
 
-export default class NextUniversalRoute {
+export class Route {
   public path: string;
   public page?: string;
-  private urlifyCallback?: Function;
+  private urlFormatter?: Function;
   private params: object;
   private queryStringParams: object;
 
-  constructor(path: string, page?: string, urlifyCallback?: Function) {
+  constructor(path: string, page?: string, urlFormatter?: Function) {
     this.path = path;
     this.page = `/${page}`;
-    this.urlifyCallback = urlifyCallback;
+    this.urlFormatter = urlFormatter;
     this.params = {};
     this.queryStringParams = {};
   }
@@ -31,10 +31,10 @@ export default class NextUniversalRoute {
   }
 
   private formatUrl(params: object) {
-    let fn: Function = urlify;
+    let fn: Function = formatUrl;
 
-    if (isFunction(this.urlifyCallback)) {
-      fn = (string: string) => this.urlifyCallback(urlify(string));
+    if (isFunction(this.urlFormatter)) {
+      fn = (string: string) => this.urlFormatter(formatUrl(string));
     }
 
     return mapValues(params, (param: string | number) =>

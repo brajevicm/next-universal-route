@@ -1,4 +1,4 @@
-import NextUniversalRoute from './lib/NextUniversalRoute';
-import Link from './lib/Link';
+import { Route } from './Route';
+import { Link } from './Link';
 
-export { NextUniversalRoute, Link };
+export { Link, Route as NextUniversalRoute };

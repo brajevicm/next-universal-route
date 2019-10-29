@@ -17,6 +17,6 @@ const compilePath = (path: string) => {
   return generator;
 };
 
-export default (path: string = '/', params: object = {}) => {
+export const generatePath = (path: string = '/', params: object = {}) => {
   return path === '/' ? path : compilePath(path)(params);
 };

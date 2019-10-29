@@ -1,8 +1,8 @@
 import { stringify } from 'qs';
-import generatePath from './generatePath';
-import isAbsolutePath from './isAbsolutePath';
+import { generatePath } from './lib/generatePath';
+import { isAbsolutePath } from './lib/isAbsolutePath';
 
-export default class NextRoute {
+export class NextRoute {
   public path: string;
   public page?: string;
   public params?: object;
