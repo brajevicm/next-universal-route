@@ -18,16 +18,17 @@ export const Link = (props: LinkProps) => {
 
   if (href.isAbsolutePath) {
     const child: any = Children.only(props.children);
+    const { children, ...newRest } = rest;
 
     if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
-      const { children, ...newRest } = rest;
-
-      return (
-        <a href={href.toHref()} {...newRest}>
-          {children}
-        </a>
-      );
+      return React.cloneElement(child, newRest);
     }
+
+    return (
+      <a href={href.toHref()} {...newRest}>
+        {children}
+      </a>
+    );
   }
 
   return <NextLink href={href.toHref()} as={href.toAs()} {...rest} />;
