@@ -12,6 +12,7 @@ export const Router = ((router: NextRouterType) => {
     router.replace(href.toHref(), href.toAs(), options);
 
   return {
+    ...router,
     push,
     prefetch,
     replace

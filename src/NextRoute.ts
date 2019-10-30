@@ -7,6 +7,7 @@ export class NextRoute {
   public page?: string;
   public params?: object;
   public queryStringParams?: object;
+  public isAbsolutePath: boolean;
 
   constructor(
     path: string,
@@ -18,10 +19,11 @@ export class NextRoute {
     this.page = page;
     this.params = params;
     this.queryStringParams = queryStringParams;
+    this.isAbsolutePath = isAbsolutePath(path);
   }
 
   public toAs(): string {
-    if (isAbsolutePath(this.path)) {
+    if (this.isAbsolutePath) {
       return this.path;
     }
 
@@ -32,7 +34,7 @@ export class NextRoute {
   }
 
   public toHref(): string {
-    if (isAbsolutePath(this.path)) {
+    if (this.isAbsolutePath) {
       return this.path;
     }
 

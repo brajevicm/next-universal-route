@@ -14,5 +14,10 @@ type LinkProps = {
 
 export const Link = (props: LinkProps) => {
   const { href, ...rest } = props;
+
+  if (href.isAbsolutePath) {
+    return <a href={href.toHref()} {...rest} />;
+  }
+
   return <NextLink href={href.toHref()} as={href.toAs()} {...rest} />;
 };
