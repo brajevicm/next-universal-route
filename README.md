@@ -1,4 +1,6 @@
-#Universal Next.js Route
+# Universal Next.js Route
+
+Static, dynamic and absolute routes generator for Next.js. Define routes once and re-use them everywhere without hassle. Comes with Link and Router replacements.
 
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![npm](https://img.shields.io/npm/v/next-universal-route) ![Travis (.org)](https://img.shields.io/travis/brajevicm/next-universal-route) ![Codecov](https://img.shields.io/codecov/c/gh/brajevicm/next-universal-route)
 
@@ -10,15 +12,27 @@ $ npm install next-universal-route
 $ yarn install next-universal-route
 ```
 
+## Features
+
+- [x] Concise, DRY routes
+- [x] Two-way, works on both client and server
+- [x] Relative static and dynamic paths (using path-to-regexp)
+- [x] Absolute paths
+- [x] Full Next.js Link replacement
+- [x] Partial Next.js Router replacement (push, prefetch, replace)
+- [ ] Full Next.js Router replacement
+- [ ] Opt-in routing system (via middleware)
+
+
 ## Usage
 
 #### Route creation
 
 ```js
 // routes.js
-const NextUniversalRoute = require('next-universal-route');
+const Route = require('next-universal-route');
 
-const IndexRoute = new NextUniversalRoute('/', 'index');
+const IndexRoute = new Route('/', 'index');
 
 module.exports = {
   IndexRoute
@@ -90,15 +104,15 @@ export default () => (
 
 ## API Docs
 
-#### **`NextUniversalRoute.constructor(path: string, page?: string): NextUniversalRoute`**
+#### **`Route.constructor(path: string, page?: string): Route`**
 
 ```js
-const IndexRoute = new NextUniversalRoute('/', 'index');
-const PostsRoute = new NextUniversalRoute('/posts/:id/:slug', 'posts');
-const GithubRoute = new NextUniversalRoute('https://github.com');
+const IndexRoute = new Route('/', 'index');
+const PostsRoute = new Route('/posts/:id/:slug', 'posts');
+const GithubRoute = new Route('https://github.com');
 ```
 
-#### **`NextUniversalRoute.path: string`** 
+#### **`Route.path: string`** 
 
 ```js
 IndexRoute.path // => '/'
@@ -106,7 +120,7 @@ PostsRoute.path // => '/posts/:id/:slug'
 GithubRoute.path // => 'https://github.com'
 ```
 
-#### **`NextUniversalRoute.page: string`**
+#### **`Route.page: string`**
 
 ```js
 IndexRoute.page // => '/index'
@@ -114,7 +128,7 @@ PostsRoute.page // => '/posts'
 GithubRoute.page // => null
 ```
 
-#### **`NextUniversalRoute.generateUrl(params?: object, queryStringParams?: object): NextRoute`**
+#### **`Route.generateUrl(params?: object, queryStringParams?: object): NextRoute`**
 
 ```js
 IndexRoute.generateUrl();

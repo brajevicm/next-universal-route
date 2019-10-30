@@ -1,20 +1,20 @@
-const NextUniversalRoute = require('../src/NextUniversalRoute');
+import { Route } from '../src/Route';
 
 test('should construct NextRoute', () => {
-  const testRoute = new NextUniversalRoute('/', 'index');
+  const testRoute = new Route('/', 'index');
   expect(testRoute).toBeDefined();
   expect(testRoute.path).toBe('/');
   expect(testRoute.page).toBe('/index');
 });
 
 test('should get path-to-regexp path', () => {
-  const testRoute = new NextUniversalRoute('/test/:a', 'test');
+  const testRoute = new Route('/test/:a', 'test');
 
   expect(testRoute.path).toBe('/test/:a');
 });
 
 test('should generate cloned object', () => {
-  const testRoute = new NextUniversalRoute('/test/:a', 'test');
+  const testRoute = new Route('/test/:a', 'test');
   const testRouteA = testRoute.generateUrl({ a: 'a' });
   const testRouteB = testRoute.generateUrl({ a: 'b' });
   const testRouteC = testRoute.generateUrl({ a: 'c' });
@@ -25,7 +25,7 @@ test('should generate cloned object', () => {
 });
 
 test('should format params', () => {
-  const testRoute = new NextUniversalRoute('/test/:a', 'test');
+  const testRoute = new Route('/test/:a', 'test');
   const nextRoute = testRoute.generateUrl({ a: 'A' }, { id: 'ID' });
 
   expect(nextRoute.params).toMatchObject({ a: 'a' });
@@ -33,8 +33,8 @@ test('should format params', () => {
 });
 
 test('should format params with custom function', () => {
-  const formatter = string => string.toUpperCase();
-  const testRoute = new NextUniversalRoute('/test/:a', 'test', formatter);
+  const formatter = (string: string) => string.toUpperCase();
+  const testRoute = new Route('/test/:a', 'test', formatter);
   const nextRoute = testRoute.generateUrl({ a: 'a' }, { id: 1 });
 
   expect(nextRoute.params).toMatchObject({ a: 'A' });
@@ -42,7 +42,7 @@ test('should format params with custom function', () => {
 });
 
 test('should generate proper as and href with params and qs', () => {
-  const testRoute = new NextUniversalRoute('/test/:a', 'test');
+  const testRoute = new Route('/test/:a', 'test');
   const nextRoute = testRoute.generateUrl({ a: 'A' }, { id: 'ID' });
 
   expect(nextRoute.toAs()).toBe('/test/a?id=id');
@@ -50,7 +50,7 @@ test('should generate proper as and href with params and qs', () => {
 });
 
 test('should generate proper as and href without params and qs', () => {
-  const testRoute = new NextUniversalRoute('/test', 'test');
+  const testRoute = new Route('/test', 'test');
   const nextRoute = testRoute.generateUrl();
 
   expect(nextRoute.toAs()).toBe('/test');
@@ -58,7 +58,7 @@ test('should generate proper as and href without params and qs', () => {
 });
 
 test('should generate proper as and href with additional queryString params on page', () => {
-  const testRoute = new NextUniversalRoute('/test', 'test?a=b');
+  const testRoute = new Route('/test', 'test?a=b');
   const nextRoute = testRoute.generateUrl();
 
   expect(nextRoute.toAs()).toBe('/test');
@@ -66,8 +66,8 @@ test('should generate proper as and href with additional queryString params on p
 });
 
 test('should generate href with absolute path', () => {
-  const externalHttpsRoute = new NextUniversalRoute('https://www.github.com');
-  const externalHttpRoute = new NextUniversalRoute('http://github.com');
+  const externalHttpsRoute = new Route('https://www.github.com');
+  const externalHttpRoute = new Route('http://github.com');
 
   expect(externalHttpsRoute.generateUrl().toHref()).toBe(
     'https://www.github.com'

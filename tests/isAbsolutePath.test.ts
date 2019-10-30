@@ -1,4 +1,4 @@
-const isAbsolutePath = require('../src/lib/isAbsolutePath');
+import { isAbsolutePath } from '../src/lib/isAbsolutePath';
 
 test('should be absolute path', () => {
   const a = 'http://example.com';

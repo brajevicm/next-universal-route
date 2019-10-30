@@ -1,3 +1,2 @@
-const NextRoute = require('./src/NextUniversalRoute');
-
-module.exports = NextRoute;
+const { Route } = require('./dist/Route');
+module.exports = Route;
