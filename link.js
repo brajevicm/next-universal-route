@@ -1,2 +1,3 @@
-const { Link } = require('./dist/src/Link');
+const { Link } = require('./dist/Link');
+
 module.exports = Link;

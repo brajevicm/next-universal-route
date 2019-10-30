@@ -1,2 +1,2 @@
-const { Router } = require('./dist/src/Router');
+const { Router } = require('./dist/Router');
 module.exports = Router;
