@@ -1,4 +1,4 @@
-import { Route } from '../src/lib/Route';
+import { Route } from '../src/Route';
 
 test('should construct NextRoute', () => {
   const testRoute = new Route('/', 'index');

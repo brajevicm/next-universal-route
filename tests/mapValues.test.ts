@@ -1,4 +1,4 @@
-import { mapValues } from '../src/lib/util/mapValues';
+import { mapValues } from '../src/lib/mapValues';
 
 test('should map values', () => {
   const obj = { a: 1, b: 2 };

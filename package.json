@@ -1,8 +1,8 @@
 {
   "name": "next-universal-route",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Universal Next.js Route",
-  "main": "./dist/index.js",
+  "main": "index.js",
   "author": "Miloš Brajević <brajevicms@gmail.com>",
   "repository": "brajevicm/next-universal-route",
   "license": "MIT",

@@ -1,4 +1,4 @@
-import { formatUrl } from '../src/lib/util/formatUrl';
+import { formatUrl } from '../src/lib/formatUrl';
 
 test('should trim both whitespace and non-alphanumeric character', () => {
   const string = '!abc ';
