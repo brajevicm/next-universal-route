@@ -1,7 +1,7 @@
 import { NextRoute } from './NextRoute';
-import { isFunction } from './lib/isFunction';
-import { mapValues } from './lib/mapValues';
-import { formatUrl } from './lib/formatUrl';
+import { isFunction } from './util/isFunction';
+import { mapValues } from './util/mapValues';
+import { formatUrl } from './util/formatUrl';
 
 export class Route {
   public path: string;

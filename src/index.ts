@@ -1,5 +1,5 @@
-import { Route } from './Route';
-import { Link } from './Link';
-import { Router } from './Router';
+import { Route } from './lib/Route';
+import { Router } from './lib/Router';
+import { Link } from './lib/Link';
 
-export { Link, Route, Router };
+export { Route, Router, Link };

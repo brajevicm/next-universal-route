@@ -1,20 +1,18 @@
 import NextRouter, { NextRouter as NextRouterType } from 'next/router';
 
 import { NextRoute } from './NextRoute';
+import { clone } from './util/deepClone';
 
 export const Router = ((router: NextRouterType) => {
-  const push = (href: NextRoute, options?: object) =>
+  const newRouter = clone(router);
+
+  newRouter.push = (href: NextRoute, options?: object) =>
     router.push(href.toHref(), href.toAs(), options);
 
-  const prefetch = (href: NextRoute) => router.prefetch(href.toHref());
+  newRouter.prefetch = (href: NextRoute) => router.prefetch(href.toHref());
 
-  const replace = (href: NextRoute, options?: object) =>
+  newRouter.replace = (href: NextRoute, options?: object) =>
     router.replace(href.toHref(), href.toAs(), options);
 
-  return {
-    ...router,
-    push,
-    prefetch,
-    replace
-  };
+  return newRouter;
 })(NextRouter);
