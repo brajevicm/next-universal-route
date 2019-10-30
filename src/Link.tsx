@@ -21,7 +21,12 @@ export const Link = (props: LinkProps) => {
 
     if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
       const { children, ...newRest } = rest;
-      return <a href={href.toHref()} {...newRest} />;
+
+      return (
+        <a href={href.toHref()} {...newRest}>
+          {children}
+        </a>
+      );
     }
   }
 
