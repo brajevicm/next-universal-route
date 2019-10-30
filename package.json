@@ -1,6 +1,6 @@
 {
   "name": "next-universal-route",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Universal Next.js Route",
   "main": "./dist/index.js",
   "author": "Miloš Brajević <brajevicms@gmail.com>",

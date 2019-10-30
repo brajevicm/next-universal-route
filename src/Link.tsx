@@ -21,7 +21,7 @@ export const Link = (props: LinkProps) => {
     const { children, ...newRest } = rest;
 
     if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
-      return React.cloneElement(child, newRest);
+      return React.cloneElement(child, { href: href.toHref(), ...newRest });
     }
 
     return (
