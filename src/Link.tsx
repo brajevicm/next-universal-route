@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import { NextRoute } from './NextRoute';
 
 type LinkProps = {
-  href: NextRoute;
+  href: NextRoute | string;
   replace?: boolean;
   scroll?: boolean;
   shallow?: boolean;
@@ -15,17 +15,18 @@ type LinkProps = {
 
 export const Link = (props: LinkProps) => {
   const { href, ...rest } = props;
+  const newHref = typeof href === 'string' ? href : href.toHref();
 
-  if (href.isAbsolutePath) {
+  if (typeof href === 'string' || href.isAbsolutePath) {
     const child: any = Children.only(props.children);
     const { children, ...newRest } = rest;
 
     if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
-      return React.cloneElement(child, { href: href.toHref(), ...newRest });
+      return React.cloneElement(child, { href: newHref, ...newRest });
     }
 
     return (
-      <a href={href.toHref()} {...newRest}>
+      <a href={newHref} {...newRest}>
         {children}
       </a>
     );
