@@ -34,7 +34,7 @@ export class Route {
     let fn: Function = formatUrl;
 
     if (isFunction(this.urlFormatter)) {
-      fn = (string: string) => this.urlFormatter(formatUrl(string));
+      fn = (string: string) => formatUrl(this.urlFormatter(string));
     }
 
     return mapValues(params, (param: string | number) =>

@@ -33,11 +33,11 @@ test('should format params', () => {
 });
 
 test('should format params with custom function', () => {
-  const formatter = (string: string) => string.toUpperCase();
+  const formatter = (string: string) => string + 1;
   const testRoute = new Route('/test/:a', 'test', formatter);
   const nextRoute = testRoute.generateUrl({ a: 'a' }, { id: 1 });
 
-  expect(nextRoute.params).toMatchObject({ a: 'A' });
+  expect(nextRoute.params).toMatchObject({ a: 'a1' });
   expect(nextRoute.queryStringParams).toMatchObject({ id: 1 });
 });
 
