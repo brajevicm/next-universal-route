@@ -1,7 +1,7 @@
 import NextRouter, { NextRouter as NextRouterType } from 'next/router';
 
 import { NextRoute } from './NextRoute';
-import { clone } from './lib/deepClone';
+// import { clone } from './lib/deepClone';
 
 // TODO: Find the way to replace Next's Router completely
 // const ClonedRouter = ((router: NextRouterType) => {
