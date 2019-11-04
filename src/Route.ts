@@ -100,9 +100,6 @@ export class Route {
 
   private getQuery(values, keys) {
     return values.reduce((params, val, i) => {
-      if (val === undefined) {
-        return params;
-      }
       return {
         ...params,
         [keys[i].name]: decodeURIComponent(val)

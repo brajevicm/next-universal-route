@@ -85,6 +85,7 @@ test('should generate route from passed url', () => {
   const nextRoute = testRoute.generateFromUrl('/milos/brajevic?foo=bar', {
     page: 2
   });
+
   expect(nextRoute.toAs()).toBe('/milos/brajevic?foo=bar&page=2');
   expect(nextRoute.toHref()).toBe(
     '/test?tab=first&first=milos&second=brajevic&foo=bar&page=2'
