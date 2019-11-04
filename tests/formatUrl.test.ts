@@ -17,9 +17,3 @@ test('should replace non-alphanumeric character with hyphen', () => {
   const urlfiedString = formatUrl(string);
   expect(urlfiedString).toBe('a-b-c');
 });
-
-test('should transform to lower case', () => {
-  const string = 'ABC';
-  const urlfiedString = formatUrl(string);
-  expect(urlfiedString).toBe('abc');
-});

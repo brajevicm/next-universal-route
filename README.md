@@ -26,6 +26,7 @@ $ yarn install next-universal-route
 - [x] Partial <b>update</b> to query params
 - [x] Opt-in routing system (via middleware)
 - [ ] Full Next.js Router replacement
+- [x] Custom params and query string formatting
 
 ## Usage
 
@@ -102,11 +103,11 @@ export default () => (
 
 ### Route
 
-#### **`Route.constructor(path: string, page?: string): Route`**
+#### **`Route.constructor(path: string, page?: string, urlFormatter?: Function): Route`**
 
 ```js
 const IndexRoute = new Route('/', 'index');
-const PostsRoute = new Route('/posts/:id/:slug', 'posts');
+const PostsRoute = new Route('/posts/:id/:slug', 'posts', string => str.toUpperCase());
 const GithubRoute = new Route('https://github.com');
 ```
 
@@ -138,14 +139,14 @@ GithubRoute.generateUrl();
 
 ```js
 IndexRoute.toAs(); // => '/'
-PostsRoute.toAs(); // => '/posts/1/first-post?page=1'
+PostsRoute.toAs(); // => '/posts/1/FIRST-POST?page=1'
 GithubRoute.toAs(); // =? 'https://github.com'
 ```
 #### **`NextRoute.toHref(): string`**
 
 ```js
 IndexRoute.toHref(); // => '/index'
-PostsRoute.toHref(); // => '/posts?id=1&slug=first-post&page=1'
+PostsRoute.toHref(); // => '/posts?id=1&slug=FIRST-POST&page=1'
 GithubRoute.toHref(); // => 'https://github.com'
 ```
 

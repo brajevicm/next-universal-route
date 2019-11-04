@@ -29,25 +29,27 @@ test('should format params', () => {
   const testRoute = new Route('/test/:a', 'test');
   const nextRoute = testRoute.generateUrl({ a: 'A' }, { id: 'ID' });
 
-  expect(nextRoute.params).toMatchObject({ a: 'a' });
-  expect(nextRoute.queryStringParams).toMatchObject({ id: 'id' });
+  expect(nextRoute.params).toMatchObject({ a: 'A' });
+  expect(nextRoute.queryStringParams).toMatchObject({ id: 'ID' });
 });
 
 test('should format params with custom function', () => {
-  const formatter = (string: string) => string + 1;
+  const formatter = (string: string) => string.toUpperCase();
   const testRoute = new Route('/test/:a', 'test', formatter);
   const nextRoute = testRoute.generateUrl({ a: 'a' }, { id: 1 });
 
-  expect(nextRoute.params).toMatchObject({ a: 'a1' });
+  expect(nextRoute.params).toMatchObject({ a: 'A' });
   expect(nextRoute.queryStringParams).toMatchObject({ id: 1 });
+  expect(nextRoute.toAs()).toBe('/test/A?id=1');
+  expect(nextRoute.toHref()).toBe('/test?a=A&id=1');
 });
 
 test('should generate proper as and href with params and qs', () => {
   const testRoute = new Route('/test/:a', 'test');
   const nextRoute = testRoute.generateUrl({ a: 'A' }, { id: 'ID' });
 
-  expect(nextRoute.toAs()).toBe('/test/a?id=id');
-  expect(nextRoute.toHref()).toBe('/test?a=a&id=id');
+  expect(nextRoute.toAs()).toBe('/test/A?id=ID');
+  expect(nextRoute.toHref()).toBe('/test?a=A&id=ID');
 });
 
 test('should generate proper as and href without params and qs', () => {
