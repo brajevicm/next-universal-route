@@ -1,0 +1,13 @@
+import { Route } from './Route';
+
+export class Routes {
+  private routes: Route[];
+
+  constructor(routes) {
+    this.routes = Object.values(routes);
+  }
+
+  public getRoute(url: string) {
+    return this.routes.filter(route => route.isMatch(url))[0];
+  }
+}

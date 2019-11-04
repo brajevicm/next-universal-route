@@ -1,6 +1,8 @@
 # Universal Next.js Route
 
-Static, dynamic and absolute routes generator for Next.js. Define routes once and re-use them everywhere without hassle. Comes with Link and Router replacements.
+Static, dynamic and absolute routes generator for Next.js. Define routes once and re-use them everywhere without hassle. 
+
+Comes with Link and Router replacements.
 
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![npm](https://img.shields.io/npm/v/next-universal-route) ![Travis (.org)](https://img.shields.io/travis/brajevicm/next-universal-route) ![Codecov](https://img.shields.io/codecov/c/gh/brajevicm/next-universal-route)
 
@@ -16,13 +18,14 @@ $ yarn install next-universal-route
 
 - [x] Concise, DRY routes
 - [x] Two-way, works on both client and server
-- [x] Relative static and dynamic paths (using path-to-regexp)
+- [x] Static and dynamic paths (using path-to-regexp)
 - [x] Absolute paths
-- [x] Full Next.js Link replacement
-- [x] Partial Next.js Router replacement (push, prefetch, replace)
+- [x] Pass invisible params to every page (support for tabs)
+- [x] Next.js Link replacement
+- [x] Next.js Router replacement (push, prefetch, replace, <b>update</b>)
+- [x] Partial <b>update</b> to query params
+- [x] Opt-in routing system (via middleware)
 - [ ] Full Next.js Router replacement
-- [ ] Opt-in routing system (via middleware)
-
 
 ## Usage
 
@@ -39,32 +42,23 @@ module.exports = {
 }
 ```
 
-#### Using Express.js on server side
+#### Using Middleware on server side
 
 ```js
 // server.js
 const express = require('express');
-const app = next({dev: process.env.NODE_ENV !== 'production'})
-const handle = app.getRequestHandler();
+const next = require('next');
+const getRequestHandler = require('next-universal-route/handler');
 
-const { IndexRoute } = require('./routes');
+const routes = require('./routes');
+const app = next({ dev: process.env.NODE_ENV !== 'production' });
+const handler = getRequestHandler(app, routes);
 
 app.prepare().then(() => {
-  const server = express();
-
-  server.get(IndexRoute.path, (req, res) => {
-    app.render(req, res, IndexRoute.page, {});
-  });
-
-  server.get('*', (req, res) => {
-    handle(req, res);
-  });
-
-  server.listen(3000, err => {
-    if (err) throw err;
-    console.log('Server running on localhost:3000');
-  });
-}
+  express()
+    .use(handler)
+    .listen(3000);
+});
 ```
 
 #### Using Next.js Link Component
@@ -72,17 +66,19 @@ app.prepare().then(() => {
 // pages/index.js
 import React from 'react';
 import Link from 'next/link';
-import { IndexRoute } from '../server';
+import { IndexRoute } from '../routes';
 
-const LinkWrapper = ({ route, children }) => (
-  <Link href={route.toHref()} as={route.toAs()}>
+const LinkWrapper = ({ href, children }) => (
+  <Link href={href.toHref()} as={href.toAs()}>
     <a>{children}</a>
   </Link>
 );
 
 export default () => (
   <div>
-    <LinkWrapper route={IndexRoute.generateUrl()}>Go to Index Page</LinkWrapper>
+    <LinkWrapper href={IndexRoute.generateUrl()}>
+      Go to Index Page
+    </LinkWrapper>
   </div>
 )
 
@@ -90,10 +86,10 @@ export default () => (
 
 #### Using Universal Next.js Route's Link Component
 ```js
-// /pages/index.js
+// pages/index.js
 import React from 'react';
 import Link from 'next-universal-route/link';
-import { IndexRoute } from '../server';
+import { IndexRoute } from '../routes';
 
 export default () => (
   <Link href={IndexRoute.generateUrl()}>
@@ -103,6 +99,8 @@ export default () => (
 ```
 
 ## API Docs
+
+### Route
 
 #### **`Route.constructor(path: string, page?: string): Route`**
 
@@ -150,3 +148,13 @@ IndexRoute.toHref(); // => '/index'
 PostsRoute.toHref(); // => '/posts?id=1&slug=first-post&page=1'
 GithubRoute.toHref(); // => 'https://github.com'
 ```
+
+### Router
+
+#### **`Router.push(href: NextRoute, options?: object)`**
+
+#### **`Router.prefetch(href: NextRoute)`**
+
+#### **`Router.replace(href: NextRoute, options?: object)`**
+
+#### **`Router.update(href: Route, params: object)`**

@@ -1,3 +1,4 @@
+import { Routes } from './../src/Routes';
 import { Route } from '../src/Route';
 
 test('should construct NextRoute', () => {
@@ -77,4 +78,15 @@ test('should generate href with absolute path', () => {
   );
   expect(externalHttpRoute.generateUrl().toHref()).toBe('http://github.com');
   expect(externalHttpRoute.generateUrl().toAs()).toBe('http://github.com');
+});
+
+test('should generate route from passed url', () => {
+  const testRoute = new Route('/:first/:second', 'test?tab=first');
+  const nextRoute = testRoute.generateFromUrl('/milos/brajevic?foo=bar', {
+    page: 2
+  });
+  expect(nextRoute.toAs()).toBe('/milos/brajevic?foo=bar&page=2');
+  expect(nextRoute.toHref()).toBe(
+    '/test?tab=first&first=milos&second=brajevic&foo=bar&page=2'
+  );
 });

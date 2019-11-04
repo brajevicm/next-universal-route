@@ -1,6 +1,8 @@
 import NextRouter, { NextRouter as NextRouterType } from 'next/router';
 
+import { Route } from './Route';
 import { NextRoute } from './NextRoute';
+
 // import { clone } from './lib/deepClone';
 
 // TODO: Find the way to replace Next's Router completely
@@ -27,9 +29,18 @@ export const Router = ((router: NextRouterType) => {
   const replace = (href: NextRoute, options?: object) =>
     router.replace(href.toHref(), href.toAs(), options);
 
+  const update = (href: Route, params: object) =>
+    push(
+      href.generateFromUrl(
+        `${window.location.pathname}${window.location.search}`,
+        params
+      )
+    );
+
   return {
     push,
     prefetch,
-    replace
+    replace,
+    update
   };
 })(NextRouter);

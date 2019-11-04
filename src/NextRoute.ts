@@ -7,18 +7,21 @@ export class NextRoute {
   public page?: string;
   public params?: object;
   public queryStringParams?: object;
+  public query?: object;
   public isAbsolutePath: boolean;
 
   constructor(
     path: string,
     page?: string,
     params?: object,
-    queryStringParams?: object
+    queryStringParams?: object,
+    query?: object
   ) {
     this.path = path;
     this.page = page;
     this.params = params;
     this.queryStringParams = queryStringParams;
+    this.query = query;
     this.isAbsolutePath = isAbsolutePath(path);
   }
 
@@ -39,6 +42,7 @@ export class NextRoute {
     }
 
     const queryString = stringify({
+      ...this.query,
       ...this.params,
       ...this.queryStringParams
     });

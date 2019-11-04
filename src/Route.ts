@@ -9,35 +9,57 @@ import { formatUrl } from './lib/formatUrl';
 export class Route {
   public path: string;
   public page?: string;
-  public query: object;
+  private _query: object;
   private urlFormatter?: Function;
   private params: object;
   private queryStringParams: object;
 
   constructor(path: string, page?: string, urlFormatter?: Function) {
     this.path = path;
-    this.page = `/${page}`;
-    this.query = {};
+    this.setPage(`/${page}`);
     this.urlFormatter = urlFormatter;
     this.params = {};
     this.queryStringParams = {};
   }
 
-  public generateUrl(params: object = {}, queryStringParams: object = {}) {
-    this.params = this.formatUrl(params);
-    this.queryStringParams = this.formatUrl(queryStringParams);
+  get query() {
+    return { ...this._query, ...this.queryStringParams };
+  }
+
+  public generateUrl(params: object = {}, queryStringParams?: object) {
+    const newParams = this.formatUrl({ ...this.params, ...params });
+    const newQueryStringParams = this.formatUrl({
+      ...this.queryStringParams,
+      ...queryStringParams
+    });
 
     return new NextRoute(
       this.path,
       this.page,
-      this.params,
-      this.queryStringParams
+      newParams,
+      newQueryStringParams,
+      this._query
     );
   }
 
+  public generateFromUrl(url: string, params: object): NextRoute {
+    const { pathname, query } = this.parseUrl(url);
+    const keys = [];
+    const regex = pathToRegexp(this.path, keys);
+    const values = regex.exec(pathname);
+
+    const newParams = this.getQuery(values.slice(1), keys);
+    const queryStringParams = {
+      ...this.queryStringParams,
+      ...query,
+      ...params
+    };
+
+    return this.generateUrl(newParams, queryStringParams);
+  }
+
   public isMatch(url: string) {
-    const parsedUrl = parse(url, true);
-    const { pathname, query } = parsedUrl;
+    const { pathname, query } = this.parseUrl(url);
 
     const keys = [];
     const regex = pathToRegexp(this.path, keys);
@@ -45,10 +67,23 @@ export class Route {
 
     if (isMatch) {
       const values = regex.exec(pathname);
-      this.query = { ...this.getQuery(values.slice(1), keys), ...query };
+
+      this._query = {
+        ...this._query,
+        ...this.getQuery(values.slice(1), keys)
+      };
+
+      this.queryStringParams = query;
     }
 
     return isMatch;
+  }
+
+  private setPage(url: string): void {
+    const { pathname, query } = this.parseUrl(url);
+
+    this._query = query;
+    this.page = pathname;
   }
 
   private formatUrl(params: object): object {
@@ -65,10 +100,23 @@ export class Route {
 
   private getQuery(values, keys) {
     return values.reduce((params, val, i) => {
-      if (val === undefined) return params;
-      return Object.assign(params, {
+      if (val === undefined) {
+        return params;
+      }
+      return {
+        ...params,
         [keys[i].name]: decodeURIComponent(val)
-      });
+      };
     }, {});
+  }
+
+  private parseUrl(url: string) {
+    const parsedUrl = parse(url, true);
+    const { pathname, query } = parsedUrl;
+
+    return {
+      pathname,
+      query
+    };
   }
 }

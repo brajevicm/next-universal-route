@@ -1,20 +1,8 @@
-import { Route } from './Route';
-
-class Router {
-  private routes: Route[];
-
-  constructor(routes) {
-    this.routes = Object.values(routes);
-  }
-
-  public getRoute(url: string) {
-    return this.routes.filter(route => route.isMatch(url))[0];
-  }
-}
+import { Routes } from './Routes';
 
 export const getRequestHandler = (app, routes) => {
   const nextHandler = app.getRequestHandler();
-  const router = new Router(routes);
+  const router = new Routes(routes);
 
   return (req, res) => {
     const route = router.getRoute(req.url);
