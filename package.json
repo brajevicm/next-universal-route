@@ -1,11 +1,11 @@
 {
   "name": "next-universal-route",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Universal Next.js Route",
-  "main": "./lib/index.js",
+  "main": "./cjs/index.js",
   "module": "./es/index.js",
   "modules.root": "./es",
-  "types": "./lib/index.d.ts",
+  "types": "./cjs/index.d.ts",
   "author": "Miloš Brajević <brajevicms@gmail.com>",
   "repository": "brajevicm/next-universal-route",
   "license": "MIT",
@@ -13,9 +13,9 @@
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "test": "jest --config jest.config.json && codecov",
     "test:watch": "jest --config jest.config.json --watchAll",
-    "build": " rimraf ./dist && npm run build:es && npm run build:lib",
+    "build": " rimraf ./dist && npm run build:es && npm run build:cjs",
     "build:es": "tsc --module es2015 --target es5 --outDir es",
-    "build:lib": "tsc --module commonjs --target es5 --outDir lib"
+    "build:cjs": "tsc --module commonjs --target es5 --outDir cjs"
   },
   "keywords": [
     "react",

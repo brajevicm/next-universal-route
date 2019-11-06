@@ -105,4 +105,4 @@ dist
 
 # Build-generated files
 es
-lib
+cjs
