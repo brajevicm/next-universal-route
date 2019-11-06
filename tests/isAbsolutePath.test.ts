@@ -1,4 +1,4 @@
-import { isAbsolutePath } from '../src/lib/isAbsolutePath';
+import { isAbsolutePath } from '../src/utils/isAbsolutePath';
 
 test('should be absolute path', () => {
   const a = 'http://example.com';

@@ -1,4 +1,4 @@
-import { isFunction } from '../src/lib/isFunction';
+import { isFunction } from '../src/utils/isFunction';
 
 test('should be function', () => {
   const fn = () => {};

@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "target": "es5",
-    "module": "commonjs",
     "removeComments": true,
     "declaration": true,
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node"
   },
   "include": ["./src/**/*.tsx", "./src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "tests"]
 }

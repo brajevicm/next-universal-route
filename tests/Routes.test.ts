@@ -1,5 +1,5 @@
-import { Routes } from './../src/Routes';
-import { Route } from './../src/Route';
+import { Routes } from '../src/lib/Routes';
+import { Route } from '../src/lib/Route';
 
 test('should match route from passed url', () => {
   const testRoute = new Route('/:first/:second', 'test?tab=first');
