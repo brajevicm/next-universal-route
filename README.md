@@ -1,10 +1,12 @@
 # Universal Next.js Route
 
-Static, dynamic and absolute routes generator for Next.js. Define routes once and re-use them everywhere without hassle. 
+Next.js is a fantastic Server-Side-Rendering framework for React, however one of the main issues community has with it is File-System based routing. 
 
-Comes with Link and Router replacements.
+Universal Next.jS Route strives to fix that by using Route objects for static, dynamic and absoloute paths. This library comes with custom Link, Router and middleware for creating a highly modular routing mechanism.
 
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![npm](https://img.shields.io/npm/v/next-universal-route) ![Travis (.org)](https://img.shields.io/travis/brajevicm/next-universal-route) ![Codecov](https://img.shields.io/codecov/c/gh/brajevicm/next-universal-route)
+Full list of features and demo can be found below.
+
+![npm](https://img.shields.io/npm/v/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![Travis (.org)](https://img.shields.io/travis/brajevicm/next-universal-route) ![Codecov](https://img.shields.io/codecov/c/gh/brajevicm/next-universal-route)
 
 
 # Installation
@@ -13,7 +15,7 @@ $ npm install next-universal-route
 ```
 or
 ```
-$ yarn install next-universal-route
+$ yarn add next-universal-route
 ```
 
 # Demo & Examples
@@ -31,6 +33,8 @@ $ yarn install next-universal-route
 - [x] Next.js Link replacement
 - [x] Pass extra params to every page (support for tabs)
 - [x] Custom params and query string formatting
+- [ ] Rewrites
+- [ ] Redirects
 
 &nbsp;
 # API Docs
