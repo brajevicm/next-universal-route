@@ -4,7 +4,7 @@ Next.js is a fantastic Server-Side-Rendering framework for React, however one of
 
 Universal Next.jS Route strives to fix that by using Route objects for static, dynamic and absoloute paths. This library comes with custom Link, Router and middleware for creating a highly modular routing mechanism.
 
-Full list of features and demo can be found below.
+Full list of features, examples and API docs can be found below.
 
 ![npm](https://img.shields.io/npm/v/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![Travis (.org)](https://img.shields.io/travis/brajevicm/next-universal-route) ![Codecov](https://img.shields.io/codecov/c/gh/brajevicm/next-universal-route)
 
@@ -20,7 +20,58 @@ $ yarn add next-universal-route
 
 # Demo & Examples
 
+For fully featured demo check CodeSandbox or to get a quick peek take a look at example below.
+
 [![Edit next-universal-route-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/next-universal-route-ko4w8?fontsize=14)
+
+### Server-Side
+
+```js
+// routes.js
+const IndexRoute = new Route('/', 'index');
+const PostRoute = new Route('/posts/:id/:slug', 'post';)
+
+// server.js
+const express = require("express");
+const next = require("next");
+const { getRequestHandler } = require("next-universal-route");
+
+const routes = require("./routes");
+const app = next({ dev: process.env.NODE_ENV !== "production" });
+const handler = getRequestHandler(app, routes);
+
+app.prepare().then(() => {
+  express()
+    .use(handler)
+    .listen(3000);
+});
+```
+
+### Client-Side
+```js
+// pages/index.js
+import {IndexRoute, PostRoute} from '../routes';
+
+<Link href={IndexRoute.generateUrl()}>
+  <a>Index</a>
+</Link>
+
+<Link href={PostRoute.generateUrl({ id: 1, slug: "first-post" })}>
+  <a>Post</a>
+</Link>
+```
+
+When using a custom server with a server file, for example called `server.js`, make sure you update the scripts key in `package.json` to:
+
+```json
+{
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
+  }
+}
+```
 
 # Features
 
