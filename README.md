@@ -2,7 +2,7 @@
 
 Next.js is a fantastic Server-Side-Rendering framework for React, however one of the main issues community has with it is File-System based routing. 
 
-Universal Next.jS Route strives to fix that by using Route objects for static, dynamic and absoloute paths. This library comes with custom Link, Router and middleware for creating a highly modular routing mechanism.
+Universal Next.js Route strives to fix that by using Route objects for static, dynamic and absoloute paths. This library comes with custom Link, Router and middleware for creating a highly modular routing mechanism.
 
 Full list of features, examples and API docs can be found below.
 
@@ -20,24 +20,31 @@ $ yarn add next-universal-route
 
 # Demo & Examples
 
-For fully featured demo check CodeSandbox or to get a quick peek take a look at example below.
-
 [![Edit next-universal-route-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/next-universal-route-ko4w8?fontsize=14)
+
+For fully featured demo check CodeSandbox or to get a quick peek take a look at example below.
 
 ### Server-Side
 
 ```js
 // routes.js
+const { Route } = require('next-universal-route');
+
 const IndexRoute = new Route('/', 'index');
 const PostRoute = new Route('/posts/:id/:slug', 'post';)
 
-// server.js
-const express = require("express");
-const next = require("next");
-const { getRequestHandler } = require("next-universal-route");
+module.exports = {
+  IndexRoute,
+  PostRoute
+};
 
-const routes = require("./routes");
-const app = next({ dev: process.env.NODE_ENV !== "production" });
+// server.js
+const express = require('express');
+const next = require('next');
+const { getRequestHandler } = require('next-universal-route');
+
+const routes = require('./routes');
+const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handler = getRequestHandler(app, routes);
 
 app.prepare().then(() => {
@@ -50,13 +57,15 @@ app.prepare().then(() => {
 ### Client-Side
 ```js
 // pages/index.js
-import {IndexRoute, PostRoute} from '../routes';
+import { Link } from 'next-universal-route';
+
+import { IndexRoute, PostRoute } from '../routes';
 
 <Link href={IndexRoute.generateUrl()}>
   <a>Index</a>
 </Link>
 
-<Link href={PostRoute.generateUrl({ id: 1, slug: "first-post" })}>
+<Link href={PostRoute.generateUrl({ id: 1, slug: 'first-post' })}>
   <a>Post</a>
 </Link>
 ```
@@ -106,7 +115,7 @@ Instantiates a Route object to be used throughout the application.
 
 #### **`Route.generateUrl(params?: object, queryStringParams?: object): NextRoute`**
 Generates a NextRoute object which is used for client-side routing. It will generate both `href` and `as` via `toHref` and `toAs` methods.
-- If using static routes you `Route.generateUrl` can be called without any arguments
+- If using static routes, `Route.generateUrl` can be called without any arguments
 - If generating dynamic routes you'll have to pass params and optionally queryStringParams
   - params is the object which corresponds to path-to-regexp params
   - queryStringparams is the object with query string key/values pairs
