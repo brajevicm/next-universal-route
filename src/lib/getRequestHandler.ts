@@ -8,8 +8,12 @@ export const getRequestHandler = (app, routes, options) => {
     const route = router.getRoute(req.url);
 
     if (route) {
-      if (req.subdomains.indexOf(options.subdomain) > -1) {
-        app.render(req, res, `/${options.subdomain}${route.page}`, route.query);
+      if (options.subdomain) {
+        const isSubdomain = req.subdomains.indexOf(options.subdomain) > -1;
+
+        if (isSubdomain && route.hasSubdomain(options.subdomain)) {
+          app.render(req, res, `/m${route.page}`, route.query);
+        }
       }
 
       app.render(req, res, route.page, route.query);

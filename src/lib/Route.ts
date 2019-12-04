@@ -13,6 +13,7 @@ export class Route {
   private urlFormatter?: Function;
   private params: object;
   private queryStringParams: object;
+  private subdomains: string[] = [];
 
   constructor(path: string, page?: string, urlFormatter?: Function) {
     this.path = path;
@@ -22,7 +23,7 @@ export class Route {
     this.queryStringParams = {};
   }
 
-  get query() {
+  get query(): object {
     return { ...this._query, ...this.queryStringParams };
   }
 
@@ -77,6 +78,16 @@ export class Route {
     }
 
     return isMatch;
+  }
+
+  public hasSubdomain(subdomain: string): boolean {
+    return this.subdomains.indexOf(subdomain) > -1;
+  }
+
+  public addSubdomain(subdomain: string): Route {
+    this.subdomains.push(subdomain);
+
+    return this;
   }
 
   private setPage(url: string): void {

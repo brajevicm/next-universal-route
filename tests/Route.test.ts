@@ -92,3 +92,10 @@ test('should generate route from passed url', () => {
     '/test?tab=first&first=milos&second=brajevic&foo=bar&page=2'
   );
 });
+
+test('should generate route with passed subdomain', () => {
+  const testRoute = new Route('/test', 'test').addSubdomain('m');
+
+  expect(testRoute.hasSubdomain('m')).toBe(true);
+  expect(testRoute).toBeInstanceOf(Route);
+});
