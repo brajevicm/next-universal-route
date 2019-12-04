@@ -1,6 +1,6 @@
 {
   "name": "next-universal-route",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Universal Next.js Route",
   "main": "./cjs/index.js",
   "module": "./es/index.js",
