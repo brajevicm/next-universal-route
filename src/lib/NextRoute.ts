@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 import { generatePath } from '../utils/generatePath';
-import { isAbsolutePath } from '../utils//isAbsolutePath';
+import { isAbsolutePath } from '../utils/isAbsolutePath';
 
 export class NextRoute {
   public path: string;

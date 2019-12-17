@@ -5,13 +5,14 @@ import { NextRoute } from './NextRoute';
 import { isFunction } from '../utils/isFunction';
 import { mapValues } from '../utils/mapValues';
 import { formatUrl } from '../utils/formatUrl';
+import { omitFalsyValues } from '../utils/omitFalsyValues';
 
 export class Route {
   public path: string;
   public page?: string;
   private _query: object;
-  private urlFormatter?: Function;
-  private params: object;
+  private readonly urlFormatter?: Function;
+  private readonly params: object;
   private queryStringParams: object;
   private subdomains: string[] = [];
 
@@ -32,7 +33,7 @@ export class Route {
     const newParams = this.formatUrl({ ...this.params, ...params });
     const newQueryStringParams = this.formatUrl({
       ...this.queryStringParams,
-      ...queryStringParams
+      ...omitFalsyValues(queryStringParams)
     });
 
     return new NextRoute(
