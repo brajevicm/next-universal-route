@@ -7,3 +7,4 @@ tests/
 .travis.yml
 jest.config.json
 tsconfig.json
+.idea
