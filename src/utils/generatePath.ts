@@ -1,7 +1,7 @@
-import pathToRegexp from 'path-to-regexp';
+import { PathFunction, compile } from 'path-to-regexp';
 
 type StringMap = {
-  [key: string]: pathToRegexp.PathFunction;
+  [key: string]: PathFunction;
 };
 
 const cache: StringMap = {};
@@ -11,7 +11,7 @@ const compilePath = (path: string) => {
     return cache[path];
   }
 
-  const generator: pathToRegexp.PathFunction = pathToRegexp.compile(path);
+  const generator: PathFunction = compile(path);
   cache[path] = generator;
 
   return generator;

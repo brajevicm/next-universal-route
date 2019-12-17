@@ -4,7 +4,7 @@ export class Routes {
   private routes: Route[];
 
   constructor(routes) {
-    this.routes = Object.values(routes);
+    this.routes = Object.keys(routes).map(key => routes[key]);
   }
 
   public getRoute(url: string) {

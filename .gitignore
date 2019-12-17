@@ -106,3 +106,6 @@ dist
 # Build-generated files
 es
 cjs
+
+# IDE
+.idea

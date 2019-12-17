@@ -1,4 +1,4 @@
-import pathToRegexp from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 import { parse } from 'url';
 
 import { NextRoute } from './NextRoute';
@@ -23,6 +23,7 @@ export class Route {
     this.queryStringParams = {};
   }
 
+  // @ts-ignore
   get query(): object {
     return { ...this._query, ...this.queryStringParams };
   }
