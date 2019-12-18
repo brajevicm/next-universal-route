@@ -6,6 +6,7 @@ import { isFunction } from '../utils/isFunction';
 import { mapValues } from '../utils/mapValues';
 import { formatUrl } from '../utils/formatUrl';
 import { omitFalsyValues } from '../utils/omitFalsyValues';
+import { isAbsolutePath } from './../utils/isAbsolutePath';
 
 export class Route {
   public path: string;
@@ -64,8 +65,13 @@ export class Route {
   public isMatch(url: string) {
     const { pathname, query } = this.parseUrl(url);
 
+    if (isAbsolutePath(this.path)) {
+      return false;
+    }
+
     const keys = [];
     const regex = pathToRegexp(this.path, keys);
+
     const isMatch = regex.test(pathname);
 
     if (isMatch) {

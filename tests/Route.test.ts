@@ -84,7 +84,8 @@ test('should generate href with absolute path', () => {
 test('should generate route from passed url', () => {
   const testRoute = new Route('/:first/:second', 'test?tab=first');
   const nextRoute = testRoute.generateFromUrl('/milos/brajevic?foo=bar', {
-    page: 2
+    page: 2,
+    size: ''
   });
 
   expect(nextRoute.toAs()).toBe('/milos/brajevic?foo=bar&page=2');

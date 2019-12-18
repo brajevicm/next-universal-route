@@ -1,4 +1,4 @@
-import React, { Children, ReactChildren } from 'react';
+import React, { Children, ReactNode } from 'react';
 import NextLink from 'next/link';
 
 import { NextRoute } from './NextRoute';
@@ -10,7 +10,7 @@ type LinkProps = {
   shallow?: boolean;
   passHref?: boolean;
   prefetch?: boolean;
-  children?: ReactChildren;
+  children?: ReactNode;
 };
 
 export const Link = (props: LinkProps) => {
