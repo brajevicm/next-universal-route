@@ -21,8 +21,15 @@ import { NextRoute } from './NextRoute';
 // })(NextRouter);
 
 export const Router = ((router: NextRouterType) => {
-  const push = (href: NextRoute, options?: object) =>
-    router.push(href.toHref(), href.toAs(), options);
+  const push = (href: NextRoute, options?: object) => {
+    const newHref = typeof href === 'string' ? href : href.toHref();
+
+    if (typeof href === 'string' || href.isAbsolutePath) {
+      return (window.location.href = newHref);
+    }
+
+    return router.push(href.toHref(), href.toAs(), options);
+  };
 
   const prefetch = (href: NextRoute) => router.prefetch(href.toHref());
 
