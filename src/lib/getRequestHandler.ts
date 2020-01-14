@@ -1,6 +1,10 @@
 import { Routes } from './Routes';
 
-export const getRequestHandler = (app, routes, options) => {
+type HandlerOptions = {
+  subdomain: string;
+};
+
+export const getRequestHandler = (app, routes, options?: HandlerOptions) => {
   const nextHandler = app.getRequestHandler();
   const router = new Routes(routes);
 
@@ -8,7 +12,7 @@ export const getRequestHandler = (app, routes, options) => {
     const route = router.getRoute(req.url);
 
     if (route) {
-      if (options.subdomain) {
+      if (options && options.subdomain) {
         const isSubdomain = req.subdomains.indexOf(options.subdomain) > -1;
 
         if (isSubdomain && route.hasSubdomain(options.subdomain)) {
