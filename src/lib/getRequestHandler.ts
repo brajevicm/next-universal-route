@@ -12,15 +12,22 @@ export const getRequestHandler = (app, routes, options?: HandlerOptions) => {
     const route = router.getRoute(req.url);
 
     if (route) {
+      const customHandler = route.getCustomHandler(app);
+      let page = route.page;
+
       if (options && options.subdomain) {
         const isSubdomain = req.subdomains.indexOf(options.subdomain) > -1;
 
         if (isSubdomain && route.hasSubdomain(options.subdomain)) {
-          app.render(req, res, `/m${route.page}`, route.query);
+          page = `/${options.subdomain}${route.page}`;
         }
       }
 
-      app.render(req, res, route.page, route.query);
+      if (customHandler) {
+        customHandler(req, res, page, route.query);
+      } else {
+        app.render(req, res, page, route.query);
+      }
     } else {
       nextHandler(req, res, req.url);
     }

@@ -1,5 +1,6 @@
 import { pathToRegexp } from 'path-to-regexp';
 import { parse } from 'url';
+import { ServerResponse, IncomingMessage } from 'http';
 
 import { NextRoute } from './NextRoute';
 import { isFunction } from '../utils/isFunction';
@@ -16,13 +17,20 @@ export class Route {
   private readonly params: object;
   private queryStringParams: object;
   private subdomains: string[] = [];
+  private customHandler: Function;
 
-  constructor(path: string, page?: string, urlFormatter?: Function) {
+  constructor(
+    path: string,
+    page?: string,
+    urlFormatter?: Function,
+    customHandler?: Function
+  ) {
     this.path = path;
     this.setPage(`/${page}`);
     this.urlFormatter = urlFormatter;
     this.params = {};
     this.queryStringParams = {};
+    this.customHandler = customHandler;
   }
 
   // @ts-ignore
@@ -96,6 +104,17 @@ export class Route {
     this.subdomains.push(subdomain);
 
     return this;
+  }
+
+  public getCustomHandler(app: Function): Function {
+    if (!this.customHandler) return undefined;
+
+    return (
+      req: IncomingMessage,
+      res: ServerResponse,
+      pathname: string,
+      query: object = {}
+    ) => this.customHandler(app, req, res, pathname, query);
   }
 
   private setPage(url: string): void {

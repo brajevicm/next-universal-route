@@ -101,7 +101,7 @@ When using a custom server with a server file, for example called `server.js`, m
 
 ## Route
 
-#### **`Route.constructor(path: string, page?: string, urlFormatter?: Function): Route`**
+#### **`Route.constructor(path: string, page?: string, urlFormatter?: Function, customHandler?: Function): Route`**
 Instantiates a Route object to be used throughout the application.
 - To create the route with absolute path, it needs to start with `http`
   - page can/should be ommited as it won't be used
@@ -112,6 +112,7 @@ Instantiates a Route object to be used throughout the application.
   - page is required and it should correspond to page in `pages/`
     - it's possible to pass extra params using query strings syntax which can be accessed inside your page, but won't be shown to your user
   - urlFormatter is optional and it takes a function which will run on every given parameter when `Route.generateUrl` is called
+  - customHandler is optional and takes same arguments as the Next.js's app.render functions
 
 #### **`Route.generateUrl(params?: object, queryStringParams?: object): NextRoute`**
 Generates a NextRoute object which is used for client-side routing. It will generate both `href` and `as` via `toHref` and `toAs` methods.
