@@ -45,6 +45,8 @@ export class Route {
       ...omitFalsyValues(queryStringParams)
     });
 
+    this.queryStringParams = {};
+
     return new NextRoute(
       this.path,
       this.page,
