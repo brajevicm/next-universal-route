@@ -41,11 +41,11 @@ export class Route {
   public generateUrl(params: object = {}, queryStringParams?: object) {
     const newParams = this.formatUrl({ ...this.params, ...params });
     const newQueryStringParams = this.formatUrl({
-      ...this.queryStringParams,
+      // ...this.queryStringParams,
       ...omitFalsyValues(queryStringParams)
     });
 
-    this.queryStringParams = {};
+
 
     return new NextRoute(
       this.path,
