@@ -40,12 +40,10 @@ export class Route {
 
   public generateUrl(params: object = {}, queryStringParams?: object) {
     const newParams = this.formatUrl({ ...this.params, ...params });
-    const newQueryStringParams = this.formatUrl({
+    const newQueryStringParams = {
       // ...this.queryStringParams,
       ...omitFalsyValues(queryStringParams)
-    });
-
-
+    };
 
     return new NextRoute(
       this.path,
