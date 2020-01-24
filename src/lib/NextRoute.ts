@@ -31,7 +31,7 @@ export class NextRoute {
     }
 
     const path = generatePath(this.path, this.params);
-    const queryString = stringify(this.queryStringParams);
+    const queryString = stringify(this.queryStringParams, { indices: false });
 
     return queryString ? `${path}?${queryString}` : path;
   }
@@ -41,11 +41,14 @@ export class NextRoute {
       return this.path;
     }
 
-    const queryString = stringify({
-      ...this.query,
-      ...this.params,
-      ...this.queryStringParams
-    });
+    const queryString = stringify(
+      {
+        ...this.query,
+        ...this.params,
+        ...this.queryStringParams
+      },
+      { indices: false }
+    );
 
     return queryString ? `${this.page}?${queryString}` : this.page;
   }
