@@ -16,3 +16,11 @@ test('should generate path with just slash', () => {
   expect(generatedPath).toBe('/');
   expect(generatedPath2).toBe('/');
 });
+
+test('should generate path according to passed params with numbers', () => {
+  const path = '/page/:a/:b/:c';
+  const params = { a: '1', b: 2, c: 'c' };
+
+  const generatedPath = generatePath(path, params);
+  expect(generatedPath).toBe('/page/1/2/c');
+});

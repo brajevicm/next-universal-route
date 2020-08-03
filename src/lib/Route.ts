@@ -42,8 +42,15 @@ export class Route {
     const newParams = this.formatUrl({ ...this.params, ...params });
     const newQueryStringParams = {
       // ...this.queryStringParams,
-      ...omitFalsyValues(queryStringParams)
+      ...omitFalsyValues(queryStringParams),
     };
+
+    // Hack when supplied param is an empty string
+    for (const key in newParams) {
+      if (newParams[key] === '') {
+        newParams[key] = 'foo';
+      }
+    }
 
     return new NextRoute(
       this.path,
@@ -64,7 +71,7 @@ export class Route {
     const queryStringParams = {
       ...this.queryStringParams,
       ...query,
-      ...params
+      ...params,
     };
 
     return this.generateUrl(newParams, queryStringParams);
@@ -87,11 +94,13 @@ export class Route {
 
       this._query = {
         ...this._query,
-        ...this.getQuery(values.slice(1), keys)
+        ...this.getQuery(values.slice(1), keys),
       };
 
       this.queryStringParams = query;
     }
+
+    console.log(query, this.page);
 
     return isMatch;
   }
@@ -140,7 +149,7 @@ export class Route {
     return values.reduce((params, val, i) => {
       return {
         ...params,
-        [keys[i].name]: decodeURIComponent(val)
+        [keys[i].name]: decodeURIComponent(val),
       };
     }, {});
   }
@@ -151,7 +160,7 @@ export class Route {
 
     return {
       pathname,
-      query
+      query,
     };
   }
 }

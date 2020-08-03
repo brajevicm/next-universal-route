@@ -100,3 +100,12 @@ test('should generate route with passed subdomain', () => {
   expect(testRoute.hasSubdomain('m')).toBe(true);
   expect(testRoute).toBeInstanceOf(Route);
 });
+
+test('should assign a hack value to prevent exceptions', () => {
+  const testRoute = new Route('/test/:a', 'test');
+  const nextRoute = testRoute.generateUrl({ a: '' }, { id: 'ID' });
+
+  expect(nextRoute.params).toMatchObject({ a: 'foo' });
+  expect(nextRoute.queryStringParams).toMatchObject({ id: 'ID' });
+  expect(nextRoute.toAs()).toBe('/test/foo?id=ID');
+});
