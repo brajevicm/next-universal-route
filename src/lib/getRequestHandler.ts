@@ -12,7 +12,6 @@ export const getRequestHandler = (app, routes, options?: HandlerOptions) => {
     const route = router.getRoute(req.url);
 
     if (route) {
-      // console.log(route)
       const customHandler = route.getCustomHandler(app);
       let page = route.page;
 

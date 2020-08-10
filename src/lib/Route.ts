@@ -100,8 +100,6 @@ export class Route {
       this.queryStringParams = query;
     }
 
-    console.log(query, this.page);
-
     return isMatch;
   }
 
