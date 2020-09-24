@@ -22,12 +22,12 @@ export const Link = (props: LinkProps) => {
     const { children, ...newRest } = rest;
 
     if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
-      return React.cloneElement(child, { href: newHref, ...newRest });
+      const { prefetch, ...restWithoutPrefetch } = newRest;
+      return React.cloneElement(child, { href: newHref, ...restWithoutPrefetch });
     }
-    const { prefetch, ...restWithoutPrefetch } = newRest;
 
     return (
-      <a href={newHref} {...restWithoutPrefetch}>
+      <a href={newHref} {...newRest}>
         {children}
       </a>
     );
