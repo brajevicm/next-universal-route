@@ -2,9 +2,9 @@ src/
 coverage/
 tests/
 .gitignore
+.idea
 .npmignore
 .prettierrc
 .travis.yml
 jest.config.json
 tsconfig.json
-.idea
