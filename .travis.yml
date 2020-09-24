@@ -9,4 +9,5 @@ cache:
   - node_modules
 deploy:
   provider: npm
+  email: brajevicms@gmail.com
   skip_cleanup: 'true'
