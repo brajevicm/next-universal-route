@@ -10,4 +10,5 @@ cache:
 deploy:
   provider: npm
   email: brajevicms@gmail.com
+  api_key: $NPM_API_KEY
   skip_cleanup: 'true'
