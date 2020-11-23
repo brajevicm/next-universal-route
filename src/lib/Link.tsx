@@ -11,10 +11,11 @@ type LinkProps = {
   passHref?: boolean;
   prefetch?: boolean;
   children?: ReactNode;
+  onClick?: Function;
 };
 
 export const Link = (props: LinkProps) => {
-  const { href, ...rest } = props;
+  const { href, onClick, ...rest } = props;
   const newHref = typeof href === 'string' ? href : href.toHref();
 
   if (typeof href === 'string' || href.isAbsolutePath) {
@@ -23,7 +24,10 @@ export const Link = (props: LinkProps) => {
 
     if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
       const { prefetch, ...restWithoutPrefetch } = newRest;
-      return React.cloneElement(child, { href: newHref, ...restWithoutPrefetch });
+      return React.cloneElement(child, {
+        href: newHref,
+        ...restWithoutPrefetch,
+      });
     }
 
     return (
@@ -31,6 +35,10 @@ export const Link = (props: LinkProps) => {
         {children}
       </a>
     );
+  }
+
+  if (onClick) {
+    return <a href="javascript:void(0)" {...rest} />;
   }
 
   return <NextLink href={href.toHref()} as={href.toAs()} {...rest} />;
