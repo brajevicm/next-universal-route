@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-- 10
+- 14
+os: linux
+dist: bionic
 install:
 - npm install
 - npm install -g codecov
@@ -11,8 +13,7 @@ before_deploy: 'npm run build'
 deploy:
   provider: npm
   email: brajevicms@gmail.com
-  api_key: $NPM_API_KEY
+  api_token: $NPM_API_KEY
   on:
     repo: brajevicm/next-universal-route
     branch: master
-  skip_cleanup: 'true'
