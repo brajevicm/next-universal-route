@@ -1,5 +1,7 @@
 import { PathFunction, compile } from 'path-to-regexp';
 
+import { mapValues } from './mapValues';
+
 type StringMap = {
   [key: string]: PathFunction;
 };
@@ -18,5 +20,8 @@ const compilePath = (path: string) => {
 };
 
 export const generatePath = (path: string = '/', params: object = {}) => {
-  return path === '/' ? path : compilePath(path)(params);
+  const safeParams = mapValues(params, (p) =>
+    typeof p === 'undefined' ? '_' : p
+  );
+  return path === '/' ? path : compilePath(path)(safeParams);
 };

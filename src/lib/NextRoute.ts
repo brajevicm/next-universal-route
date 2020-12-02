@@ -45,7 +45,7 @@ export class NextRoute {
       {
         ...this.query,
         ...this.params,
-        ...this.queryStringParams
+        ...this.queryStringParams,
       },
       { indices: false }
     );
