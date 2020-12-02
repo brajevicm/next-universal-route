@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-- 14
+  - 14
 os: linux
-dist: bionic
+dist: xenial
 install:
-- npm install
-- npm install -g codecov
+  - npm install
+  - npm install -g codecov
 cache:
   directories:
-  - node_modules
+    - node_modules
 before_deploy: 'npm run build'
 deploy:
   provider: npm
@@ -17,3 +17,4 @@ deploy:
   on:
     repo: brajevicm/next-universal-route
     branch: master
+  skip_cleanup: true
