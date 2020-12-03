@@ -23,5 +23,10 @@ export const generatePath = (path: string = '/', params: object = {}) => {
   const safeParams = mapValues(params, (p) =>
     typeof p === 'undefined' ? '_' : p
   );
-  return path === '/' ? path : compilePath(path)(safeParams);
+
+  try {
+    return path === '/' ? path : compilePath(path)(safeParams);
+  } catch (e) {
+    console.error(path, params, e);
+  }
 };
