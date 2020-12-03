@@ -17,4 +17,4 @@ deploy:
   on:
     repo: brajevicm/next-universal-route
     branch: master
-  cleanup: false
+  skip_cleanup: true
