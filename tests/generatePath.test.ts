@@ -32,3 +32,11 @@ test('should generate path with undefined values', () => {
   const generatedPath = generatePath(path, params);
   expect(generatedPath).toBe('/page/1/_/_');
 });
+
+test('should generate path with null values', () => {
+  const path = '/page/:a/:b/:c';
+  const params = { a: '1', b: undefined, c: null };
+
+  const generatedPath = generatePath(path, params);
+  expect(generatedPath).toBe('/page/1/_/_');
+});

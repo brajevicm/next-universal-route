@@ -21,12 +21,8 @@ const compilePath = (path: string) => {
 
 export const generatePath = (path: string = '/', params: object = {}) => {
   const safeParams = mapValues(params, (p) =>
-    typeof p === 'undefined' ? '_' : p
+    typeof p === 'undefined' || p === null ? '_' : p
   );
 
-  try {
-    return path === '/' ? path : compilePath(path)(safeParams);
-  } catch (e) {
-    console.error(path, params, e);
-  }
+  return path === '/' ? path : compilePath(path)(safeParams);
 };
