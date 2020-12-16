@@ -6,8 +6,13 @@ import { NextRoute } from './NextRoute';
 import { isFunction } from '../utils/isFunction';
 import { mapValues } from '../utils/mapValues';
 import { formatUrl } from '../utils/formatUrl';
-import { omitFalsyValues } from '../utils/omitFalsyValues';
-import { isAbsolutePath } from './../utils/isAbsolutePath';
+import { isAbsolutePath } from '../utils/isAbsolutePath';
+
+type NextRouteMap = {
+  [key: string]: NextRoute;
+};
+
+const cache: NextRouteMap = {};
 
 export class Route {
   public path: string;
@@ -17,7 +22,7 @@ export class Route {
   private readonly params: object;
   private queryStringParams: object;
   private subdomains: string[] = [];
-  private customHandler: Function;
+  private readonly customHandler: Function;
 
   constructor(
     path: string,
@@ -40,29 +45,32 @@ export class Route {
 
   public generateUrl(params: object = {}, queryStringParams?: object) {
     const newParams = this.formatUrl({ ...this.params, ...params });
-    const newQueryStringParams = {
-      // ...this.queryStringParams,
-      ...omitFalsyValues(queryStringParams),
-    };
+    // const newQueryStringParams = {
+    //   // ...this.queryStringParams,
+    //   ...omitFalsyValues(queryStringParams),
+    // };
+    const key = JSON.stringify({ newParams, queryStringParams });
+    const cached = cache[key];
 
-    // Hack when supplied param is an empty string
-    for (const key in newParams) {
-      if (newParams[key] === '') {
-        newParams[key] = 'foo';
-      }
+    if (cached) {
+      return cached;
     }
 
-    return new NextRoute(
+    const route = new NextRoute(
       this.path,
       this.page,
       newParams,
-      newQueryStringParams,
+      queryStringParams,
       this._query
     );
+
+    cache[key] = route;
+
+    return route;
   }
 
   public generateFromUrl(url: string, params: object): NextRoute {
-    const { pathname, query } = this.parseUrl(url);
+    const { pathname, query } = Route.parseUrl(url);
     const keys = [];
     const regex = pathToRegexp(this.path, keys);
     const values = regex.exec(pathname);
@@ -78,7 +86,7 @@ export class Route {
   }
 
   public isMatch(url: string) {
-    const { pathname, query } = this.parseUrl(url);
+    const { pathname, query } = Route.parseUrl(url);
 
     if (isAbsolutePath(this.path)) {
       return false;
@@ -125,7 +133,7 @@ export class Route {
   }
 
   private setPage(url: string): void {
-    const { pathname, query } = this.parseUrl(url);
+    const { pathname, query } = Route.parseUrl(url);
 
     this._query = query;
     this.page = pathname;
@@ -152,7 +160,7 @@ export class Route {
     }, {});
   }
 
-  private parseUrl(url: string) {
+  private static parseUrl(url: string) {
     const parsedUrl = parse(url, true);
     const { pathname, query } = parsedUrl;
 
