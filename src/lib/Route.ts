@@ -55,10 +55,10 @@ export class Route {
     };
     const { path, page, _query } = this;
     const key = JSON.stringify({
-      newParams,
-      newQueryStringParams,
       path,
       page,
+      newParams,
+      newQueryStringParams,
       _query,
     });
 
@@ -74,7 +74,6 @@ export class Route {
       this._query
     );
 
-    // @ts-ignore
     cache.set(key, route);
 
     return route;

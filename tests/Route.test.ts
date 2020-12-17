@@ -19,10 +19,16 @@ test('should generate cloned object', () => {
   const testRouteA = testRoute.generateUrl({ a: 'a' });
   const testRouteB = testRoute.generateUrl({ a: 'b' });
   const testRouteC = testRoute.generateUrl({ a: 'c' });
+  const testRouteD = testRoute.generateUrl({ a: 'c' });
 
   expect(testRouteA).not.toBe(testRouteB);
   expect(testRouteA).not.toBe(testRouteC);
   expect(testRouteB).not.toBe(testRouteC);
+  expect(testRouteC).toBe(testRouteD);
+  expect(testRouteA.toAs).not.toBe(testRouteB.toAs);
+  expect(testRouteB.toAs).not.toBe(testRouteC.toAs);
+  expect(testRouteC.toAs).not.toBe(testRouteA.toAs);
+  expect(testRouteC.toAs).toBe(testRouteD.toAs);
 });
 
 test('should format params', () => {

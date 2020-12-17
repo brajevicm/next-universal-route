@@ -1,4 +1,4 @@
-import React, { Children, ReactNode, memo } from 'react';
+import React, { Children, ReactNode } from 'react';
 import NextLink from 'next/link';
 
 import { NextRoute } from './NextRoute';
@@ -14,41 +14,32 @@ type LinkProps = {
   onClick?: Function;
 };
 
-export const Link = memo(
-  (props: LinkProps) => {
-    const { href, onClick, ...rest } = props;
-    const newHref = typeof href === 'string' ? href : href.toHref;
+export const Link = (props: LinkProps) => {
+  const { href, onClick, ...rest } = props;
+  const newHref = typeof href === 'string' ? href : href.toHref;
 
-    if (typeof href === 'string' || href.isAbsolutePath) {
-      const child: any = Children.only(props.children);
-      const { children, ...newRest } = rest;
+  if (typeof href === 'string' || href.isAbsolutePath) {
+    const child: any = Children.only(props.children);
+    const { children, ...newRest } = rest;
 
-      if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
-        const { prefetch, ...restWithoutPrefetch } = newRest;
-        return React.cloneElement(child, {
-          href: newHref,
-          ...restWithoutPrefetch,
-        });
-      }
-
-      return (
-        <a href={newHref} {...newRest}>
-          {children}
-        </a>
-      );
+    if (props.passHref || (child.type === 'a' && !('href' in child.props))) {
+      const { prefetch, ...restWithoutPrefetch } = newRest;
+      return React.cloneElement(child, {
+        href: newHref,
+        ...restWithoutPrefetch,
+      });
     }
 
-    if (onClick) {
-      return <a href="javascript:void(0)" {...rest} />;
-    }
-
-    return <NextLink href={href.toHref} as={href.toAs} {...rest} />;
-  },
-  (prev, next) => {
-    const oldHref =
-      typeof prev.href === 'string' ? prev.href : prev.href.toHref;
-    const newHref =
-      typeof next.href === 'string' ? next.href : next.href.toHref;
-    return oldHref !== newHref;
+    return (
+      <a href={newHref} {...newRest}>
+        {children}
+      </a>
+    );
   }
-);
+
+  if (onClick) {
+    return <a href="javascript:void(0)" {...rest} />;
+  }
+
+  return <NextLink href={href.toHref} as={href.toAs} {...rest} />;
+};
