@@ -1,6 +1,6 @@
 {
   "name": "next-universal-route",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Universal Next.js Route",
   "main": "./cjs/index.js",
   "module": "./es/index.js",
@@ -33,6 +33,7 @@
   ],
   "devDependencies": {
     "@types/jest": "^26.0.16",
+    "@types/lru-cache": "^5.1.0",
     "@types/next": "^9.0.0",
     "@types/node": "^14.14.10",
     "@types/path-to-regexp": "^1.7.0",
@@ -52,7 +53,6 @@
     "react": "^16"
   },
   "dependencies": {
-    "@types/lru-cache": "^5.1.0",
     "lru-cache": "^6.0.0",
     "path-to-regexp": "^6.2.0",
     "qs": "^6.9.4",
