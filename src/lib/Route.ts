@@ -1,18 +1,19 @@
 import { pathToRegexp } from 'path-to-regexp';
 import { parse } from 'url';
 import { ServerResponse, IncomingMessage } from 'http';
+import LRUCache from 'lru-cache';
 
 import { NextRoute } from './NextRoute';
 import { isFunction } from '../utils/isFunction';
 import { mapValues } from '../utils/mapValues';
 import { formatUrl } from '../utils/formatUrl';
 import { isAbsolutePath } from '../utils/isAbsolutePath';
+import { omitFalsyValues } from '../utils/omitFalsyValues';
 
-type NextRouteMap = {
-  [key: string]: NextRoute;
-};
-
-const cache: NextRouteMap = {};
+const cache = new LRUCache({
+  max: 500,
+  maxAge: 1000 * 60 * 60,
+});
 
 export class Route {
   public path: string;
@@ -43,28 +44,38 @@ export class Route {
     return { ...this._query, ...this.queryStringParams };
   }
 
-  public generateUrl(params: object = {}, queryStringParams?: object) {
+  public generateUrl(
+    params: object = {},
+    queryStringParams?: object
+  ): NextRoute {
     const newParams = this.formatUrl({ ...this.params, ...params });
-    // const newQueryStringParams = {
-    //   // ...this.queryStringParams,
-    //   ...omitFalsyValues(queryStringParams),
-    // };
-    const key = JSON.stringify({ newParams, queryStringParams });
-    const cached = cache[key];
+    const newQueryStringParams = {
+      // ...this.queryStringParams,
+      ...omitFalsyValues(queryStringParams),
+    };
+    const { path, page, _query } = this;
+    const key = JSON.stringify({
+      newParams,
+      newQueryStringParams,
+      path,
+      page,
+      _query,
+    });
 
-    if (cached) {
-      return cached;
+    if (cache.has(key)) {
+      return <NextRoute>cache.get(key);
     }
 
     const route = new NextRoute(
       this.path,
       this.page,
       newParams,
-      queryStringParams,
+      newQueryStringParams,
       this._query
     );
 
-    cache[key] = route;
+    // @ts-ignore
+    cache.set(key, route);
 
     return route;
   }
