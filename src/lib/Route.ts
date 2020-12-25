@@ -1,7 +1,6 @@
 import { pathToRegexp } from 'path-to-regexp';
 import { parse } from 'url';
-import { ServerResponse, IncomingMessage } from 'http';
-import LRUCache from 'lru-cache';
+import { IncomingMessage, ServerResponse } from 'http';
 
 import { NextRoute } from './NextRoute';
 import { isFunction } from '../utils/isFunction';
@@ -9,11 +8,6 @@ import { mapValues } from '../utils/mapValues';
 import { formatUrl } from '../utils/formatUrl';
 import { isAbsolutePath } from '../utils/isAbsolutePath';
 import { omitFalsyValues } from '../utils/omitFalsyValues';
-
-const cache = new LRUCache({
-  max: 500,
-  maxAge: 1000 * 60 * 60,
-});
 
 export class Route {
   public path: string;
@@ -53,30 +47,14 @@ export class Route {
       // ...this.queryStringParams,
       ...omitFalsyValues(queryStringParams),
     };
-    const { path, page, _query } = this;
-    const key = JSON.stringify({
-      path,
-      page,
-      newParams,
-      newQueryStringParams,
-      _query,
-    });
 
-    if (cache.has(key)) {
-      return <NextRoute>cache.get(key);
-    }
-
-    const route = new NextRoute(
+    return new NextRoute(
       this.path,
       this.page,
       newParams,
       newQueryStringParams,
       this._query
     );
-
-    cache.set(key, route);
-
-    return route;
   }
 
   public generateFromUrl(url: string, params: object): NextRoute {

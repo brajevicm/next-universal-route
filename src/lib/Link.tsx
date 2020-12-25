@@ -16,7 +16,7 @@ type LinkProps = {
 
 export const Link = (props: LinkProps) => {
   const { href, onClick, ...rest } = props;
-  const newHref = typeof href === 'string' ? href : href.toHref;
+  const newHref = typeof href === 'string' ? href : href.toHref();
 
   if (typeof href === 'string' || href.isAbsolutePath) {
     const child: any = Children.only(props.children);
@@ -41,5 +41,5 @@ export const Link = (props: LinkProps) => {
     return <a href="javascript:void(0)" {...rest} />;
   }
 
-  return <NextLink href={href.toHref} as={href.toAs} {...rest} />;
+  return <NextLink href={href.toHref()} as={href.toAs()} {...rest} />;
 };
