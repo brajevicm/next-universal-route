@@ -1,6 +1,6 @@
 {
   "name": "next-universal-route",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "Universal Next.js Route",
   "main": "./cjs/index.js",
   "module": "./es/index.js",
@@ -55,6 +55,7 @@
   "dependencies": {
     "path-to-regexp": "^6.2.0",
     "qs": "^6.9.4",
-    "react": "^16.13.1"
+    "react": "^16.13.1",
+    "request-ip": "^2.1.3"
   }
 }

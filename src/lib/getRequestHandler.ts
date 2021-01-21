@@ -1,3 +1,5 @@
+import { getClientIp } from 'request-ip';
+
 import { Routes } from './Routes';
 
 type HandlerOptions = {
@@ -10,6 +12,7 @@ export const getRequestHandler = (app, routes, options?: HandlerOptions) => {
 
   return (req, res) => {
     const route = router.getRoute(req.url);
+    req.clientIp = getClientIp(req);
 
     if (route) {
       const customHandler = route.getCustomHandler(app);
