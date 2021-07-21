@@ -8,6 +8,14 @@ test('should construct NextRoute', () => {
   expect(testRoute.page).toBe('/index');
 });
 
+test('should generate url without encoding querystring', () => {
+  const testRoute = new Route('/', 'index');
+  const returnUrl = Buffer.from('/prijava').toString('base64');
+  const nextRoute = testRoute.generateUrl({}, { returnUrl }, {encode: false});
+  expect(returnUrl).toBe('L3ByaWphdmE=');
+  expect(nextRoute.toAs()).toBe('/?returnUrl=L3ByaWphdmE=');
+});
+
 test('should get path-to-regexp path', () => {
   const testRoute = new Route('/test/:a', 'test');
 
@@ -75,7 +83,7 @@ test('should generate route from passed url', () => {
   const testRoute = new Route('/:first/:second', 'test?tab=first');
   const nextRoute = testRoute.generateFromUrl('/milos/brajevic?foo=bar', {
     page: 2,
-    size: '',
+    size: ''
   });
 
   expect(nextRoute.toAs()).toBe('/milos/brajevic?foo=bar&page=2');
@@ -111,7 +119,7 @@ test('benchmark', () => {
         b: 'dleor',
         c: 1,
         d: 'au2100-dsa1',
-        e: Math.random() * 100,
+        e: Math.random() * 100
       },
       { kind: 'goods' }
     );
@@ -142,7 +150,7 @@ test('benchmark', () => {
         b: 'dleor',
         c: 1,
         d: 'au2100-dsa1',
-        e: Math.random() * 100,
+        e: Math.random() * 100
       },
       { kind: 'goods' }
     );

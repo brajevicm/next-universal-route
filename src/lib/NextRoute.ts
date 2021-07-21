@@ -9,13 +9,15 @@ export class NextRoute {
   public queryStringParams?: object;
   public query?: object;
   public isAbsolutePath: boolean;
+  private options: { encode: boolean };
 
   constructor(
     path: string,
     page?: string,
     params?: object,
     queryStringParams?: object,
-    query?: object
+    query?: object,
+    options?: { encode: boolean }
   ) {
     this.path = path;
     this.page = page;
@@ -23,6 +25,7 @@ export class NextRoute {
     this.queryStringParams = queryStringParams;
     this.query = query;
     this.isAbsolutePath = isAbsolutePath(path);
+    this.options = options;
   }
 
   public toAs(): string {
@@ -31,7 +34,7 @@ export class NextRoute {
     }
 
     const path = generatePath(this.path, this.params);
-    const queryString = stringify(this.queryStringParams, { indices: false });
+    const queryString = stringify(this.queryStringParams, { indices: false, encode: this.options.encode });
 
     return queryString ? `${path}?${queryString}` : path;
   }
@@ -45,9 +48,9 @@ export class NextRoute {
       {
         ...this.query,
         ...this.params,
-        ...this.queryStringParams,
+        ...this.queryStringParams
       },
-      { indices: false }
+      { indices: false, encode: this.options.encode }
     );
 
     return queryString ? `${this.page}?${queryString}` : this.page;
