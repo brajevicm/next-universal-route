@@ -108,58 +108,58 @@ test('should assign a hack value to prevent exceptions', () => {
   expect(nextRoute.toAs()).toBe('/test/_?id=ID');
 });
 
-test('benchmark', () => {
-  const testRoute = new Route('/:a/:b/:c/:d/:e', 'test');
-  const start = Date.now();
-
-  for (let i = 0; i < 362; i++) {
-    const a = testRoute.generateUrl(
-      {
-        a: 'lorem',
-        b: 'dleor',
-        c: 1,
-        d: 'au2100-dsa1',
-        e: Math.random() * 100
-      },
-      { kind: 'goods' }
-    );
-    a.toAs();
-    a.toHref();
-  }
-
-  const end = Date.now();
-  const elapsed = end - start;
-  const difference = new Date(elapsed);
-
-  const diffMs = difference.getMilliseconds();
-
-  const generateQueryString = (params = {}) => {
-    const qs = stringify(params);
-    return qs ? `?${qs}` : qs;
-  };
-
-  const generateHomeRoute = ({ a, b, c, d, e }, params = {}) => {
-    const qs = { ...params, kind: 'goods' };
-    return `/${a}/${b}/${c}/${d}/${e}/${generateQueryString(qs)}`;
-  };
-  const start2 = Date.now();
-  for (let i = 0; i < 362; i++) {
-    generateHomeRoute(
-      {
-        a: 'lorem',
-        b: 'dleor',
-        c: 1,
-        d: 'au2100-dsa1',
-        e: Math.random() * 100
-      },
-      { kind: 'goods' }
-    );
-  }
-  const end2 = Date.now();
-  const elapsed2 = end2 - start2;
-  const difference2 = new Date(elapsed2);
-  const diffMs2 = difference2.getMilliseconds();
-
-  console.log('benchmark', diffMs, diffMs2);
-  expect(true).toBe(true);
-});
+// test('benchmark', () => {
+//   const testRoute = new Route('/:a/:b/:c/:d/:e', 'test');
+//   const start = Date.now();
+//
+//   for (let i = 0; i < 362; i++) {
+//     const a = testRoute.generateUrl(
+//       {
+//         a: 'lorem',
+//         b: 'dleor',
+//         c: 1,
+//         d: 'au2100-dsa1',
+//         e: Math.random() * 100
+//       },
+//       { kind: 'goods' }
+//     );
+//     a.toAs();
+//     a.toHref();
+//   }
+//
+//   const end = Date.now();
+//   const elapsed = end - start;
+//   const difference = new Date(elapsed);
+//
+//   const diffMs = difference.getMilliseconds();
+//
+//   const generateQueryString = (params = {}) => {
+//     const qs = stringify(params);
+//     return qs ? `?${qs}` : qs;
+//   };
+//
+//   const generateHomeRoute = ({ a, b, c, d, e }, params = {}) => {
+//     const qs = { ...params, kind: 'goods' };
+//     return `/${a}/${b}/${c}/${d}/${e}/${generateQueryString(qs)}`;
+//   };
+//   const start2 = Date.now();
+//   for (let i = 0; i < 362; i++) {
+//     generateHomeRoute(
+//       {
+//         a: 'lorem',
+//         b: 'dleor',
+//         c: 1,
+//         d: 'au2100-dsa1',
+//         e: Math.random() * 100
+//       },
+//       { kind: 'goods' }
+//     );
+//   }
+//   const end2 = Date.now();
+//   const elapsed2 = end2 - start2;
+//   const difference2 = new Date(elapsed2);
+//   const diffMs2 = difference2.getMilliseconds();
+//
+//   console.log('benchmark', diffMs, diffMs2);
+//   expect(true).toBe(true);
+// });
