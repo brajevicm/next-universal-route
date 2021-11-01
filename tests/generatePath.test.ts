@@ -40,3 +40,11 @@ test('should generate path with null values', () => {
   const generatedPath = generatePath(path, params);
   expect(generatedPath).toBe('/page/1/_/_');
 });
+
+test('should generate path', () => {
+  const path = '/page-:a';
+  const params = { a: '1' };
+
+  const generatedPath = generatePath(path, params);
+  expect(generatedPath).toBe('/page-1');
+});
