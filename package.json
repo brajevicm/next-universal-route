@@ -1,11 +1,11 @@
 {
   "name": "next-universal-route",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "Universal Next.js Route",
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
-  "modules.root": "./dist",
-  "types": "./dist/index.cjs.d.ts",
+  "main": "./cjs/index.js",
+  "module": "./es/index.js",
+  "modules.root": "./es",
+  "types": "./cjs/index.d.ts",
   "author": "Miloš Brajević <brajevicms@gmail.com>",
   "repository": "brajevicm/next-universal-route",
   "license": "MIT",
@@ -14,8 +14,8 @@
     "test": "jest --config jest.config.json && codecov",
     "test:watch": "jest --config jest.config.json --watchAll",
     "build": " rimraf ./dist && npm run build:es && npm run build:cjs",
-    "build:es": "tsc --target es5 --outFile dist/index.es.js",
-    "build:cjs": "tsc --target es5 --outFile dist/index.cjs.js"
+    "build:es": "tsc --module es2015 --target es5 --outDir es",
+    "build:cjs": "tsc --module commonjs --target es5 --outDir cjs"
   },
   "keywords": [
     "react",
