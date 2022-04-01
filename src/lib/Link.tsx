@@ -2,6 +2,7 @@ import React, { Children, ReactNode } from 'react';
 import NextLink from 'next/link';
 
 import { NextRoute } from './NextRoute';
+import { isAbsolutePath } from '../utils/isAbsolutePath';
 
 type LinkProps = {
   href: NextRoute | string;
@@ -18,7 +19,7 @@ export const Link = (props: LinkProps) => {
   const { href, onClick, ...rest } = props;
   const newHref = typeof href === 'string' ? href : href.toHref();
 
-  if (typeof href === 'string' || href.isAbsolutePath) {
+  if (typeof href === 'string' || isAbsolutePath(href.path)) {
     const child: any = Children.only(props.children);
     const { children, ...newRest } = rest;
 
