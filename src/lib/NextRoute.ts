@@ -24,35 +24,53 @@ export class NextRoute {
     this.params = params;
     this.queryStringParams = queryStringParams;
     this.query = query;
-    this.isAbsolutePath = isAbsolutePath(path);
     this.options = options;
   }
 
   public toAs(): string {
-    if (this.isAbsolutePath) {
-      return this.path;
+    if (isAbsolutePath(this.path)) {
+      return this.makeAbsolutePath();
     }
 
     const path = generatePath(this.path, this.params);
-    const queryString = stringify(this.queryStringParams, { indices: false, encode: this.options.encode });
+    const queryString = stringify(this.queryStringParams, {
+      indices: false,
+      encode: this.options.encode,
+    });
 
     return queryString ? `${path}?${queryString}` : path;
   }
 
   public toHref(): string {
-    if (this.isAbsolutePath) {
-      return this.path;
+    if (isAbsolutePath(this.path)) {
+      return this.makeAbsolutePath();
     }
 
     const queryString = stringify(
       {
         ...this.query,
         ...this.params,
-        ...this.queryStringParams
+        ...this.queryStringParams,
       },
       { indices: false, encode: this.options.encode }
     );
 
     return queryString ? `${this.page}?${queryString}` : this.page;
+  }
+
+  private makeAbsolutePath(): string {
+    const url = new URL(this.path);
+
+    const origin = `${url.protocol}//${url.host}`;
+    this.path = url.pathname;
+    const generatedPath = generatePath(this.path, this.params);
+
+    const path = `${origin}${generatedPath == '/' ? '' : generatedPath}`;
+    const queryString = stringify(this.queryStringParams, {
+      indices: false,
+      encode: this.options.encode,
+    });
+
+    return queryString ? `${path}?${queryString}` : path;
   }
 }

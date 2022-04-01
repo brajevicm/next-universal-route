@@ -11,7 +11,7 @@ test('should construct NextRoute', () => {
 test('should generate url without encoding querystring', () => {
   const testRoute = new Route('/', 'index');
   const returnUrl = Buffer.from('/prijava').toString('base64');
-  const nextRoute = testRoute.generateUrl({}, { returnUrl }, {encode: false});
+  const nextRoute = testRoute.generateUrl({}, { returnUrl }, { encode: false });
   expect(returnUrl).toBe('L3ByaWphdmE=');
   expect(nextRoute.toAs()).toBe('/?returnUrl=L3ByaWphdmE=');
 });
@@ -79,11 +79,28 @@ test('should generate href with absolute path', () => {
   expect(externalHttpRoute.generateUrl().toAs()).toBe('http://github.com');
 });
 
+test('should generate href with absolute path and query params', () => {
+  const externalHttpsRoute = new Route('https://www.github.com');
+  const externalHttpsRoute2 = new Route('https://www.github.com/endpoint');
+
+  expect(
+    externalHttpsRoute.generateUrl({}, { first: 1, second: 2 }).toAs()
+  ).toBe('https://www.github.com?first=1&second=2');
+
+  expect(
+    externalHttpsRoute.generateUrl({}, { first: 1, second: 2 }).toHref()
+  ).toBe('https://www.github.com?first=1&second=2');
+
+  expect(
+    externalHttpsRoute2.generateUrl({}, { first: 1, second: 2 }).toHref()
+  ).toBe('https://www.github.com/endpoint?first=1&second=2');
+});
+
 test('should generate route from passed url', () => {
   const testRoute = new Route('/:first/:second', 'test?tab=first');
   const nextRoute = testRoute.generateFromUrl('/milos/brajevic?foo=bar', {
     page: 2,
-    size: ''
+    size: '',
   });
 
   expect(nextRoute.toAs()).toBe('/milos/brajevic?foo=bar&page=2');
