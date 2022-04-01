@@ -82,6 +82,7 @@ test('should generate href with absolute path', () => {
 test('should generate href with absolute path and query params', () => {
   const externalHttpsRoute = new Route('https://www.github.com');
   const externalHttpsRoute2 = new Route('https://www.github.com/endpoint');
+  const externalHttpsRoute3 = new Route('https://www.github.com/endpoint?a=b');
 
   expect(
     externalHttpsRoute.generateUrl({}, { first: 1, second: 2 }).toAs()
@@ -94,6 +95,10 @@ test('should generate href with absolute path and query params', () => {
   expect(
     externalHttpsRoute2.generateUrl({}, { first: 1, second: 2 }).toHref()
   ).toBe('https://www.github.com/endpoint?first=1&second=2');
+
+  expect(
+    externalHttpsRoute3.generateUrl({}, { first: 1, second: 2 }).toHref()
+  ).toBe('https://www.github.com/endpoint?a=b&first=1&second=2');
 });
 
 test('should generate route from passed url', () => {

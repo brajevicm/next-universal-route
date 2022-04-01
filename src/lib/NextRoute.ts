@@ -1,4 +1,4 @@
-import { stringify } from 'qs';
+import { stringify, parse } from 'qs';
 import { generatePath } from '../utils/generatePath';
 import { isAbsolutePath } from '../utils/isAbsolutePath';
 
@@ -66,10 +66,18 @@ export class NextRoute {
     const generatedPath = generatePath(this.path, this.params);
 
     const path = `${origin}${generatedPath == '/' ? '' : generatedPath}`;
-    const queryString = stringify(this.queryStringParams, {
-      indices: false,
-      encode: this.options.encode,
-    });
+
+    const searchParams = parse(url.search, { ignoreQueryPrefix: true });
+
+    const queryString = stringify(
+      {
+        ...searchParams,
+        ...this.query,
+        ...this.params,
+        ...this.queryStringParams,
+      },
+      { indices: false, encode: this.options.encode }
+    );
 
     return queryString ? `${path}?${queryString}` : path;
   }

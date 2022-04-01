@@ -4,7 +4,8 @@
     "declaration": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "lib": ["es6", "dom"],
+    "lib": ["es5", "es6", "dom"],
+    "module": "AMD",
     "moduleResolution": "node"
   },
   "include": ["./src/**/*.tsx", "./src/**/*.ts"],
