@@ -8,3 +8,4 @@ tests/
 .travis.yml
 jest.config.json
 tsconfig.json
+setupTests.ts
