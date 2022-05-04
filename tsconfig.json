@@ -7,6 +7,6 @@
     "lib": ["es5", "es6", "dom"],
     "moduleResolution": "node"
   },
-  "include": ["./src/**/*.tsx", "./src/**/*.ts", "./setupTests.ts"],
-  "exclude": ["node_modules", "tests"]
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+  "exclude": ["node_modules", "tests", "./setupTests.ts"]
 }
