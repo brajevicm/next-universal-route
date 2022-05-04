@@ -62,8 +62,7 @@ export class NextRoute {
     const url = new URL(this.path);
 
     const origin = `${url.protocol}//${url.host}`;
-    this.path = url.pathname;
-    const generatedPath = generatePath(this.path, this.params);
+    const generatedPath = generatePath(url.pathname, this.params);
 
     const path = `${origin}${generatedPath == '/' ? '' : generatedPath}`;
 
