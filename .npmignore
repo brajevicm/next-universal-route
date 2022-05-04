@@ -9,3 +9,5 @@ tests/
 jest.config.json
 tsconfig.json
 setupTests.ts
+es/setupTests.ts
+cjs/setupTests.ts
