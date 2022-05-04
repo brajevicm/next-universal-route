@@ -130,6 +130,12 @@ test('should assign a hack value to prevent exceptions', () => {
   expect(nextRoute.toAs()).toBe('/test/_?id=ID');
 });
 
+test('should not match an absolute path', () => {
+  const route = new Route('https://www.github.com');
+
+  expect(route.isMatch('https://www.github.com')).toBe(false);
+});
+
 // test('benchmark', () => {
 //   const testRoute = new Route('/:a/:b/:c/:d/:e', 'test');
 //   const start = Date.now();

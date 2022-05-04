@@ -1,6 +1,6 @@
 {
   "name": "next-universal-route",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "description": "Universal Next.js Route",
   "main": "./cjs/src/index.js",
   "module": "./es/src/index.js",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.1.1",
     "@types/jest": "^27.5.0",
     "@types/lru-cache": "^7.6.1",
     "@types/next": "^9.0.0",
