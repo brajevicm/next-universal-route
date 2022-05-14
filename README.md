@@ -1,24 +1,31 @@
 # Universal Next.js Route
 
-Next.js is a fantastic Server-Side-Rendering framework for React, however one of the main issues community has with it is File-System based routing. 
-
-Universal Next.js Route strives to fix that by using Route objects for static, dynamic and absoloute paths. This library comes with custom Link, Router and middleware for creating a highly modular routing mechanism.
-
-Full list of features, examples and API docs can be found below.
+The drop-in replacement for everything routing wise in Next.js.
 
 ![npm](https://img.shields.io/npm/v/next-universal-route) ![npm](https://img.shields.io/npm/dt/next-universal-route) ![Travis (.org)](https://img.shields.io/travis/brajevicm/next-universal-route) ![Codecov](https://img.shields.io/codecov/c/gh/brajevicm/next-universal-route)
 
+# Features
+
+- [x] Declaration of DRY and concise routes
+- [x] Two-way usage, works on both client and server
+- [x] Absolute, static and dynamic paths (using path-to-regexp)
+- [x] Opt-in routing system (via middleware)
+- [x] Next.js Router replacement
+- [x] Next.js Link replacement
 
 # Installation
+
 ```
 $ npm install next-universal-route
 ```
+
 or
+
 ```
 $ yarn add next-universal-route
 ```
 
-# Demo & Examples
+# Usage
 
 [![Edit next-universal-route-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/next-universal-route-ko4w8?fontsize=14)
 
@@ -31,11 +38,13 @@ For fully featured demo check CodeSandbox or to get a quick peek take a look at 
 const { Route } = require('next-universal-route');
 
 const IndexRoute = new Route('/', 'index');
-const PostRoute = new Route('/posts/:id/:slug', 'post';)
+const PostRoute = new Route('/posts/:id/:slug', 'post');
+const GitHubRoute = new Route('https://www.github.com');
 
 module.exports = {
   IndexRoute,
-  PostRoute
+  PostRoute,
+  GitHubRoute,
 };
 
 // server.js
@@ -48,18 +57,17 @@ const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handler = getRequestHandler(app, routes);
 
 app.prepare().then(() => {
-  express()
-    .use(handler)
-    .listen(3000);
+  express().use(handler).listen(3000);
 });
 ```
 
 ### Client-Side
+
 ```js
 // pages/index.js
 import { Link } from 'next-universal-route';
 
-import { IndexRoute, PostRoute } from '../routes';
+import { IndexRoute, PostRoute, GitHub } from '../routes';
 
 <Link href={IndexRoute.generateUrl()}>
   <a>Index</a>
@@ -67,6 +75,10 @@ import { IndexRoute, PostRoute } from '../routes';
 
 <Link href={PostRoute.generateUrl({ id: 1, slug: 'first-post' })}>
   <a>Post</a>
+</Link>
+
+<Link href={GitHubRoute.generateUrl()}>
+  <a>GitHub</a>
 </Link>
 ```
 
@@ -82,28 +94,18 @@ When using a custom server with a server file, for example called `server.js`, m
 }
 ```
 
-# Features
-
-- [x] Declaration of DRY and concise routes
-- [x] Two-way usage, works on both client and server
-- [x] Absolute, static and dynamic paths (using path-to-regexp)
-- [x] Opt-in routing system (via middleware)
-- [x] Automatic generation of both <b>href</b> and <b>as</b> urls
-- [x] Next.js Router replacement
-- [x] Next.js Link replacement
-- [x] Pass extra params to every page (support for tabs)
-- [x] Custom params and query string formatting
-- [ ] Rewrites
-- [ ] Redirects
-
 &nbsp;
+
 # API Docs
 
-## Route
+### Route
 
 #### **`Route.constructor(path: string, page?: string, urlFormatter?: Function, customHandler?: Function): Route`**
+
 Instantiates a Route object to be used throughout the application.
+
 - To create the route with absolute path, it needs to start with `http`
+
   - page can/should be ommited as it won't be used
   - urlFormatter can be ommited as it won't work on absolute paths
 
@@ -115,43 +117,56 @@ Instantiates a Route object to be used throughout the application.
   - customHandler is optional and takes same arguments as the Next.js's app.render functions
 
 #### **`Route.generateUrl(params?: object, queryStringParams?: object): NextRoute`**
+
 Generates a NextRoute object which is used for client-side routing. It will generate both `href` and `as` via `toHref` and `toAs` methods.
+
 - If using static routes, `Route.generateUrl` can be called without any arguments
 - If generating dynamic routes you'll have to pass params and optionally queryStringParams
   - params is the object which corresponds to path-to-regexp params
   - queryStringparams is the object with query string key/values pairs
 
 &nbsp;
+
 #### If not using Universal Next.js Route's Link
 
 #### **`NextRoute.toAs(): string`**
+
 Generates `as` prop to pass to Next.js's Link Component.
 
 #### **`NextRoute.toHref(): string`**
+
 Generates `href` prop to pass to Next.js's Link Component.
 
 #### If not using Universal Next.js Route's Middleware Handler
 
-#### **`Route.path: string`** 
+#### **`Route.path: string`**
+
 Returns path-to-regexp string for given route.
 
 #### **`Route.page: string`**
+
 Returns name of the page for given route.
 
 #### **`Route.query: string`**
+
 Returns an object which contains both params and query strings.
 
 &nbsp;
-## Router
+
+### Router
 
 #### **`Router.push(href: NextRoute, options?: object)`**
+
 Wraps Next.js's `Router.push`.
 
 #### **`Router.prefetch(href: NextRoute)`**
+
 Wraps Next.js's `Router.prefetch`.
 
 #### **`Router.replace(href: NextRoute, options?: object)`**
+
 Wraps Next.js's `Router.replace`.
 
 #### **`Router.update(href: Route, params: object)`**
+
 Wraps Next.js's `Router.push` and updates only passed params.
